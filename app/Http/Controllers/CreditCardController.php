@@ -20,4 +20,11 @@ class CreditCardController extends Controller
         ]);
         return $creditCard;
     }
+
+    // toutes les creditcards
+    public function allCreditCards(){
+        return credit_card::all();
+    }
+
+    
 }

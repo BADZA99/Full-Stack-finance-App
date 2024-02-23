@@ -18,4 +18,14 @@ class TransactionsController extends Controller
         ]);
         return $transaction;
     }
+
+    // toutes les transactions
+    public function allTransactions(){
+        return transaction::all();
+    }
+
+    //transaction par id
+    public function transactionById($id){
+        return transaction::find($id);
+    }
 }

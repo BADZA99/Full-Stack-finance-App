@@ -19,4 +19,14 @@ class AccountsController extends Controller
         ]);
         return $account;
     }
+
+    // tous les comptes
+    public function allAccounts(){
+        return account::all();
+    }
+
+    //compte par id
+    public function accountById($id){
+        return account::find($id);
+    }
 }

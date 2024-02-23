@@ -1,0 +1,19 @@
+// php artisan make:seeder UserSeeder
+// php artisan db:seed --class=UserSeeder
+
+
+// CUSTOM REQUEST POUR VALISATION
+
+//php artisan make:request RegisterRequest
+
+
+// AUTHENTIFICATION
+
+// composer require laravel/sanctum (pour installer le package de authentifiation)
+// php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider" (pour exposer le provider)
+// verifier le fichier sanctum.php dans le dossier config
+// php artisan migrate (importer hasApiTokens dans le model user et verifier la table personal-acces-tokens dans la bdd)
+// cree login login fonction
+
+// pour faire passer le jwt token dans le header de la fonction user en tant que bearer token il faut aller dans dans app/http/middleware/Authenticate.php aller dans le fichier du Middleware et copier la fonction handle et le coller dans Authenticate.php et le overread.
+// il faut aussi autoriser le suppor credentials (le passer a true) dans le ffichier cors.php situe dans config/cors.php pour permettre de faire passer le te token du bac au front

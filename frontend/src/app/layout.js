@@ -27,6 +27,8 @@ export default function RootLayout({ children }) {
   return (
       <html lang="en">
           <head>
+            {/* icon */}
+            <link rel="icon" href="/images/icone.png" />
               <title>Finance App</title>
               <meta name="description" content="Coded by PAPA BN" />
           </head>

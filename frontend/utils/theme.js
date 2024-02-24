@@ -10,7 +10,7 @@ export const THEME = {
         info: "#5bc0de",
         activeLink: "red",
         // appname color  gold
-        appname: "gold",
+        appname: "#A67C00",
     },
     dark: {
         background: "#000",
@@ -23,6 +23,6 @@ export const THEME = {
         info: "#5bc0de",
         activeLink: "red",
         // appname color  gold
-        appname: "gold",
+        appname: "#A67C00",
     },
 };

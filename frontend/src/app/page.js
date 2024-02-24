@@ -6,18 +6,16 @@ import Image from "next/image";
 
 
 export default function Home() {
-    const theme = useThemeStore((state) => state.theme);
-    const toggleTheme = useThemeStore((state) => state.toggleTheme);
+   
 
     return (
         <>
             <Reset />
             <StyledHome>
-                <p onClick={toggleTheme}>{theme}</p>
                 <div className="herobanner">
                   <p className="TextHero">
                       <span className="appName">CashLink</span> réinvente la gestion financière avec une plateforme
-                      intuitive. Suivez vos comptes, effectuez des transactions
+                      intuitive. <br />Suivez vos comptes, effectuez des transactions
                       sécurisées, et planifiez votre avenir financier avec
                       facilité.
                   </p>

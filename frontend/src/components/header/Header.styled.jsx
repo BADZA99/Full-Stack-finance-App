@@ -11,13 +11,16 @@ export const StyledHeader = styled.div`
     height: 50px;
     background: ${({ theme }) => theme.background};
     z-index: 100;
+    font-family: "Inter", sans-serif;
     /* background: #0d57e0; */
 
     .logo {
         margin-right: auto;
         font-size: 2rem;
         font-weight: bold;
-        color: ${({ theme }) => theme.text};
+        color: ${({ theme }) => theme.appname};
+        font-style: italic;
+
     }
 
     .middle {
@@ -33,7 +36,7 @@ export const StyledHeader = styled.div`
             text-decoration: none;
             font-size: 1.4rem;
             font-weight: bold;
-            
+
             span {
                 margin: 0 3px;
                 color: ${({ theme }) => theme.text};
@@ -70,9 +73,16 @@ export const StyledHeader = styled.div`
             background: ${({ theme }) => theme.text};
             border-radius: 9999px;
             &:hover {
-                background: ${({ theme }) => theme.primary};
+                background: ${({ theme }) => theme.appname};
                 color: ${({ theme }) => theme.text};
             }
+        }
+
+        .theme{
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s
+            
         }
     }
 `;

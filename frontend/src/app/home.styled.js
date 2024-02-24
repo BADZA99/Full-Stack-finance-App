@@ -6,10 +6,12 @@ export const StyledHome = styled.div`
     /* background: ${({ theme }) => theme.background}; */
     color: ${({ theme }) => theme.text};
     width: 100vw;
-    height: 93vh;
+    height: 100vh;
     background-image: url("/images/bg.jpg");
     background-position: center;
     object-fit: cover;
+    font-family: "Inter", sans-serif;
+
     /* assombrir un peu */
     background-color: rgba(0, 0, 0, 0.6);
     background-blend-mode: overlay;
@@ -26,12 +28,12 @@ export const StyledHome = styled.div`
         /* border: 1px solid red; */
 
         .TextHero {
-            width: 55%;
+            width: 52%;
             font-size: 1.8rem;
             font-weight: bold;
             line-height: 1.5;
             color: white;
-            text-align: center;
+            text-align: justify;
         }
         .ImageHero {
             width: 34%;

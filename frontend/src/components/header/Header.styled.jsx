@@ -67,9 +67,9 @@ export const StyledHeader = styled.div`
             color: ${({ theme }) => theme.background};
             text-decoration: none;
             /* style button */
-            padding: 10px 10px;
+            padding: 8px 8px;
             border-radius: 5px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
             background: ${({ theme }) => theme.text};
             border-radius: 9999px;

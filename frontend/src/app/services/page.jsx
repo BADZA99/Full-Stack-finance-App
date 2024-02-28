@@ -18,23 +18,22 @@ export default function Page() {
                 💳 Après la création d'un compte, une carte bancaire est générée
                 pour vous.
             </p>
-
             <h2>Compte Gold</h2>
             <p>
-                💰 Le plafond est de 10 millions avec un retrait maximum de 12
-                000 par mois.
+                💰 Le plafond est de 10 millions avec un tarif maximum de 12
+                000 par mois. 
             </p>
 
             <h2>Compte Premium</h2>
             <p>
-                💳 Le plafond est de 5 millions avec un retrait maximum de 5 000
-                par mois.
+                💳 Le plafond est de 5 millions avec un tarif maximum de 5 000
+                par mois. 
             </p>
 
             <h2>Compte Standard</h2>
             <p>
-                💵 Le plafond est de 1 million avec un retrait maximum de 3 000
-                FCFA par mois.
+                💵 Le plafond est de 1 million avec un tarif maximum de 3 000
+                FCFA par mois. 
             </p>
         </StyledService>
     );

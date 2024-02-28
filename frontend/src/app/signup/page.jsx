@@ -64,11 +64,6 @@ export default function SignupPage() {
            router.push("/login");
        } catch (error) {
            console.log(error);
-           setSuccess(false);
-           // attendre 3Os et le remmetre en undefined
-           setTimeout(() => {
-               setSuccess(undefined);
-           }, 3000);
        }
    };
 

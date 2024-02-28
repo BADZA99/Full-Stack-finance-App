@@ -3,11 +3,33 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Reset } from "styled-reset";
 import useThemeStore from '../../../store/themeStore';
+import useUserStore from '../../../store/userStore';
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Header() {
      const theme = useThemeStore((state) => state.theme);
      const toggleTheme = useThemeStore((state) => state.toggleTheme);
+     const setUser= useUserStore((state) => state.setUser);
+     const user= useUserStore((state) => state.user);
+    
   const pathname=usePathname();
+            console.log(user);
+
+    const logout = async () => {
+        try {
+            // utilise axios
+            const response = await axios.post("/logout");  
+            if (response) setUser(null);
+            // console.log(user);
+            // aller a la page d'acceuil
+           router.push("/");
+
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
   return (
       <>
           <Reset />
@@ -42,8 +64,18 @@ export default function Header() {
                   <div className="theme" onClick={toggleTheme}>
                       {theme === "light" ? "☀️" : "🌙"}
                   </div>
-                  <Link href="/login">connexion</Link>
-                  <Link href="/signup">inscription</Link>
+                  {user === null ? (
+                      <>
+                          <Link href="/login">connexion</Link>
+                          <Link href="/signup">inscription</Link>
+                      </>
+                  ) : (
+                      <>
+                          <Link href="/">
+                              <span onClick={logout}>déconnexion</span>
+                          </Link>
+                      </>
+                  )}
               </div>
           </StyledHeader>
       </>

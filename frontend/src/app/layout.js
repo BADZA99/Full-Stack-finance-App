@@ -8,6 +8,9 @@ import { THEME } from "../../utils/theme";
 import useThemeStore from "../../store/themeStore";
 import Axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
+import axios from "axios";
+import useUserStore from "../../store/userStore";
+import { useEffect } from "react";
 
 Axios.defaults.baseURL = "http://localhost:8000/api/";
 // pass cookie from the backend
@@ -18,6 +21,21 @@ Axios.defaults.withCredentials = true;
 export default function RootLayout({ children }) {
 // utilise le theme du store
     const theme = useThemeStore((state) => state.theme);
+    const { user, setUser } = useUserStore();
+
+      const fetchConnectedUser = async () => {
+          try {
+              const response = await axios.get("/user");
+              setUser(response.data);
+          } catch (e) {
+              console.log(e);
+          }
+      };
+      useEffect(() => {
+          fetchConnectedUser();
+          // console.log(user);
+
+      }, []);
    
   return (
       <html lang="en">

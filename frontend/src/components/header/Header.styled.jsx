@@ -59,9 +59,10 @@ export const StyledHeader = styled.div`
         margin-left: auto;
         display: flex;
         justify-content: center;
-        gap: 5%;
+        gap: 3%;
         align-items: center;
-        width: 20%;
+        width: 24%;
+        /* padding:5%; */
         a {
             color: ${({ theme }) => theme.background};
             text-decoration: none;

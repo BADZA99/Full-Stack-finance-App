@@ -11,6 +11,11 @@ export const THEME = {
         activeLink: "red",
         // appname color  gold
         appname: "#A67C00",
+        input: "#f0ad4e",
+        form: "#000",
+        label: "white",
+        btnSign: "#f0ad4e",
+        btnSignText: "black",
     },
     dark: {
         background: "#000",
@@ -22,7 +27,11 @@ export const THEME = {
         warning: "#f0ad4e",
         info: "#5bc0de",
         activeLink: "red",
-        // appname color  gold
         appname: "#A67C00",
+        input: "#000",
+        form: "#f0ad4e",
+        label: "black",
+        btnSign: "black",
+        btnSignText: "white",
     },
 };

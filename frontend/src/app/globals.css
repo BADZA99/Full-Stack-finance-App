@@ -9,10 +9,11 @@
 }
 
 body {
+  height: 100% !important;
+  width: 100vw;
   position: relative;
   overflow-x: hidden;
-  overflow-y: hidden;
-  /* police poppins */
+  /* overflow-y: hidden;  */
   font-family: 'Poppins', sans-serif;
 
 }

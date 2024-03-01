@@ -39,6 +39,7 @@ Route::get('/user/{id}', [UserController::class, 'userById']);
 Route::post('/newAccount', [AccountsController::class, 'createAccount']);
 Route::get('/allAccounts', [AccountsController::class, 'allAccounts']);
 Route::get('/account/{id}', [AccountsController::class, 'accountById']);
+Route::get('/sendEmail/{id}', [AccountsController::class, 'SendEmail']);
 
 
 // createCreditCard

@@ -3,7 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\account;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Resend\Laravel\Facades\Resend;
+use App\Http\Controllers\Controller;
+use App\Mail\mailNotify;
+use App\Mail\OrderShipped;
+use App\Models\Order;
+use App\Notifications\SignupSuccessNotification;
+use Illuminate\Support\Facades\Mail;
+use PhpParser\Node\Stmt\TryCatch;
 
 class AccountsController extends Controller
 {
@@ -28,5 +38,27 @@ class AccountsController extends Controller
     //compte par id
     public function accountById($id){
         return account::find($id);
+    }
+
+    // cree une foncrion qui envoie un email a un user
+public function SendEmail($id)
+    {
+        try {
+            $user = User::find($id);
+            if ($user) {
+                $user->notify(new SignupSuccessNotification());
+
+                return response()->json(['message' => 'email sent'], 200);
+            } 
+        } catch (\Exception $e) {
+            // Gérer l'exception ici
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+
+
+        // récupérer les infos de compte du user
+        // $account = Account::where('user_id', $request->idUser)->first();
+        
+        
     }
 }

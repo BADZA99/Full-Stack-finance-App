@@ -14,9 +14,19 @@ class SignupSuccessNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public $accountData=[
+        'user_id' => 1,
+        'account_type' => 'courant',
+        'pack' => 'gold',
+        'plafond' => 100000,
+        'montant' => 50000,
+        'max_withdrawal' => 10000,
+    ];
+    public $user_name;
+public function __construct($accountData, $user_name)
     {
-        //
+        $this->accountData = $accountData;
+        $this->user_name = $user_name;
     }
 
     /**
@@ -32,12 +42,22 @@ class SignupSuccessNotification extends Notification
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Bienvenue chez CashLink')
+            ->greeting('Bonjour, ' . $this->user_name)
+            ->line('Merci de vous être inscrit à notre application. Voici les détails de votre compte :')
+            ->line('ID utilisateur : ' . $this->accountData['user_id'])
+            ->line('Type de compte : ' . $this->accountData['account_type'] . ' FCFA')
+            ->line('Pack : ' . $this->accountData['pack'])
+            ->line('Plafond : ' . $this->accountData['plafond'] . ' FCFA')
+            ->line('Montant : ' . $this->accountData['montant'] . ' FCFA')
+            ->line('Retrait maximum : ' . $this->accountData['max_withdrawal'] . ' FCFA')
+            ->line('Veuillez garder ces détails en sécurité.')
+            ->action('Visitez notre site web', url('/'))
+            ->line('Si vous avez des questions, n\'hésitez pas à répondre à cet email. Nous sommes là pour vous aider !')
+            ->salutation('Meilleures salutations, Equipe CashLink');
     }
 
     /**

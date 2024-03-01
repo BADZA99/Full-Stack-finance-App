@@ -4,14 +4,8 @@ import { StyledSignup } from './Signup.styled'
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { useState } from 'react';
-import { Resend } from "resend";
-import emailjs from '@emailjs/browser';
-import Email from '../../components/email/Email';
+import { useRouter } from 'next/router';
 
-
-
-
-const resend = new Resend("re_123456789");
 
 
 export default function SignupPage() {
@@ -65,21 +59,11 @@ export default function SignupPage() {
 
            const accountResponse = await axios.post("/newAccount", accountData);
               console.log(accountResponse);
-
-            //   const res = await resend.emails.send({
-            //       from: "Acme <onboarding@resend.dev>",
-            //       to: [`${response.email}`],
-            //       subject: "Hello world",
-            //       react: <Email/>,
-            //   });
-
-           
-            console.log(res);
      
 
          
 
-           router.push("/login");
+        //    router.push("/login");
        } catch (error) {
            console.log(error);
        }

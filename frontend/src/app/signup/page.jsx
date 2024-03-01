@@ -1,19 +1,24 @@
 "use client"
-import React from 'react'
+import React, { useRef } from 'react'
 import { StyledSignup } from './Signup.styled'
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { useState } from 'react';
+import { Resend } from "resend";
+import emailjs from '@emailjs/browser';
+import Email from '../../components/email/Email';
 
+
+
+
+const resend = new Resend("re_123456789");
 
 
 export default function SignupPage() {
   const [success,setSuccess]=useState();
   const [selectedAccount, setSelectedAccount] = useState("");
-//   const handleAccountChange = (e) => {
-//       setSelectedAccount(watch("compte"));
-//       console.log(watch("compte"));
-//   };
+    const form = useRef();
+
    const {
        register,
        watch,
@@ -26,8 +31,6 @@ export default function SignupPage() {
            const response = await axios.post("/register", data);
         //    console.log(response);
         //    console.log(data);
-
-           // Enregistrer un compte de finance
            const accountData = {
                // Remplissez ici avec les informations du compte
                account_type: data.compte,
@@ -58,25 +61,50 @@ export default function SignupPage() {
                        : 0,
                user_id: response.data.id,
            };
+
+
            const accountResponse = await axios.post("/newAccount", accountData);
               console.log(accountResponse);
-           // rediriger vers la page login
+
+            //   const res = await resend.emails.send({
+            //       from: "Acme <onboarding@resend.dev>",
+            //       to: [`${response.email}`],
+            //       subject: "Hello world",
+            //       react: <Email/>,
+            //   });
+
+           
+            console.log(res);
+     
+
+         
+
            router.push("/login");
        } catch (error) {
            console.log(error);
        }
    };
 
-    // reset form
-    // const resetForm = () => {
-    //     setSuccess(undefined);
-    //     reset();
-    // };
+// cree un nouveau compte
+// const CreateAccount =(data)=>{
+//     axios.post("/register", data)
+//     .then((response)=>{
+//         console.log(response);
+//     })
+//     .catch((error)=>{
+//         console.log(error);
+//     })
+// }
+
+
+
+    
+
   return (
       <>
           <StyledSignup>
               <h1>Rejoins la communaute CashLink</h1>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form ref={form} onSubmit={handleSubmit(onSubmit)}>
                   {/* nom,prenom,telephone,email,mot de passe avec leur label */}
                   <label htmlFor="nom">Nom</label>
                   <input
@@ -146,7 +174,7 @@ export default function SignupPage() {
                       type="email"
                       name="email"
                       id="email"
-                      autoComplete="off"
+                   
                       {...register("email", {
                           required: true,
                           pattern:
@@ -164,7 +192,7 @@ export default function SignupPage() {
                       type="password"
                       name="password"
                       id="password"
-                      autocomplete="off"
+                  
                       {...register("password", {
                           required: true,
                           maxLength: 20,

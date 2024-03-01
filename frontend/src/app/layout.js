@@ -1,7 +1,7 @@
 "use client"
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header/Header";
+
 import { ThemeProvider } from "styled-components";
 import { useCallback, useState } from "react";
 import { THEME } from "../../utils/theme";
@@ -11,6 +11,7 @@ const inter = Inter({ subsets: ["latin"] });
 import axios from "axios";
 import useUserStore from "../../store/userStore";
 import { useEffect } from "react";
+import Header from "../components/header/Header";
 
 Axios.defaults.baseURL = "http://localhost:8000/api/";
 // pass cookie from the backend

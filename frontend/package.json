@@ -3,22 +3,30 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "email": "next email dev "
   },
   "dependencies": {
+    "@emailjs/browser": "^4.1.0",
+    "@react-email/components": "0.0.15",
+    "@react-email/render": "^0.0.12",
+    "@types/react": "^18.2.60",
     "axios": "^1.6.7",
     "gsap": "^3.12.5",
     "next": "14.1.0",
-    "react": "^18",
+    "nodemailer": "^6.9.11",
+    "react": "^18.2.0",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.22.1",
+    "resend": "^3.2.0",
     "styled-components": "^6.1.8",
     "styled-reset": "^4.5.2",
+    "typescript": "^5.3.3",
     "zustand": "^4.5.1"
   },
   "devDependencies": {

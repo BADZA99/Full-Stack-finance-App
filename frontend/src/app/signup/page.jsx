@@ -23,62 +23,117 @@ export default function SignupPage() {
    const onSubmit = async (data) => {
        try {
            const response = await axios.post("/register", data);
-        //    console.log(response);
+            console.log(response);
         //    console.log(data);
-           const accountData = {
-               // Remplissez ici avec les informations du compte
-               account_type: data.compte,
-               pack: data.compte === "courant" ? data.pack : "Nopack",
-               plafond:
-                   data.compte === "courant"
-                       ? data.pack === "gold"
-                           ? 10000000
-                           : data.pack === "premium"
-                           ? 5000000
-                           : 1000000
-                       : 0,
-               montant:
-                   data.compte === "courant"
-                       ? data.pack === "gold"
-                           ? 10000
-                           : data.pack === "premium"
-                           ? 5000
-                           : 1000
-                       : 0,
-               max_withdrawal:
-                   data.compte === "courant"
-                       ? data.pack === "gold"
-                           ? 12000
-                           : data.pack === "premium"
-                           ? 5000
-                           : 3000
-                       : 0,
-               user_id: response.data.id,
-           };
+           
+        if(response.status === 201){
+            CreateAccount(data,response.data.id);
+        }
+        
+        
+        // const accountData = {
+        //        // Remplissez ici avec les informations du compte
+        //        account_type: data.compte,
+        //        pack: data.compte === "courant" ? data.pack : "Nopack",
+        //        plafond:
+        //            data.compte === "courant"
+        //                ? data.pack === "gold"
+        //                    ? 10000000
+        //                    : data.pack === "premium"
+        //                    ? 5000000
+        //                    : 1000000
+        //                : 0,
+        //        montant:
+        //            data.compte === "courant"
+        //                ? data.pack === "gold"
+        //                    ? 10000
+        //                    : data.pack === "premium"
+        //                    ? 5000
+        //                    : 1000
+        //                : 0,
+        //        max_withdrawal:
+        //            data.compte === "courant"
+        //                ? data.pack === "gold"
+        //                    ? 12000
+        //                    : data.pack === "premium"
+        //                    ? 5000
+        //                    : 3000
+        //                : 0,
+        //        user_id: response.data.id,
+        //    };
 
 
-           const accountResponse = await axios.post("/newAccount", accountData);
-              console.log(accountResponse);
+        //    const accountResponse = await axios.post("/newAccount", accountData);
+        //       console.log(accountResponse);
      
 
          
 
         //    router.push("/login");
-       } catch (error) {
+       
+    } catch (error) {
            console.log(error);
        }
    };
 
 // cree un nouveau compte
-// const CreateAccount =(data)=>{
-//     axios.post("/register", data)
-//     .then((response)=>{
-//         console.log(response);
-//     })
-//     .catch((error)=>{
-//         console.log(error);
-//     })
-// }
+const CreateAccount = async (infosUser,idUser)=>{
+    console.log("infos user: ",infosUser,"idUser: ",idUser);
+const accountData = {
+    // Remplissez ici avec les informations du compte
+    account_type: infosUser.compte,
+    pack: infosUser.compte === "courant" ? infosUser.pack : "Nopack",
+    plafond:
+        infosUser.compte === "courant"
+            ? infosUser.pack === "gold"
+                ? 10000000
+                : infosUser.pack === "premium"
+                ? 5000000
+                : 1000000
+            : 0,
+    montant:
+        infosUser.compte === "courant"
+            ? infosUser.pack === "gold"
+                ? 10000
+                : infosUser.pack === "premium"
+                ? 5000
+                : 1000
+            : 0,
+    max_withdrawal:
+        infosUser.compte === "courant"
+            ? infosUser.pack === "gold"
+                ? 12000
+                : infosUser.pack === "premium"
+                ? 5000
+                : 3000
+            : 0,
+    user_id: idUser,
+};
+console.log("infos compte: ",accountData)
+    await axios
+        .post("/newAccount", accountData)
+        .then((responseAccount) => {
+            console.log("reponse creation compte",responseAccount);
+            // envoyer mail
+            SendEmail(idUser);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+
+// creer une fonction qui envoie l'email
+const SendEmail = async (id) => {
+   await axios
+        .get(`/sendEmail/${id}`)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
+}   
 
 
 

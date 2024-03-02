@@ -23,10 +23,12 @@ class SignupSuccessNotification extends Notification
         'max_withdrawal' => 10000,
     ];
     public $user_name;
-public function __construct($accountData, $user_name)
+    public $user_rib;
+public function __construct($accountData, $user_name,$user_rib)
     {
         $this->accountData = $accountData;
         $this->user_name = $user_name;
+        $this->user_rib = $user_rib;
     }
 
     /**
@@ -45,20 +47,28 @@ public function __construct($accountData, $user_name)
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->subject('Bienvenue chez CashLink')
-            ->greeting('Bonjour, ' . $this->user_name)
-            ->line('Merci de vous être inscrit à notre application. Voici les détails de votre compte :')
-            ->line('ID utilisateur : ' . $this->accountData['user_id'])
-            ->line('Type de compte : ' . $this->accountData['account_type'] . ' FCFA')
-            ->line('Pack : ' . $this->accountData['pack'])
-            ->line('Plafond : ' . $this->accountData['plafond'] . ' FCFA')
-            ->line('Montant : ' . $this->accountData['montant'] . ' FCFA')
-            ->line('Retrait maximum : ' . $this->accountData['max_withdrawal'] . ' FCFA')
-            ->line('Veuillez garder ces détails en sécurité.')
-            ->action('Visitez notre site web', url('/'))
-            ->line('Si vous avez des questions, n\'hésitez pas à répondre à cet email. Nous sommes là pour vous aider !')
-            ->salutation('Meilleures salutations, Equipe CashLink');
-    }
+        ->subject('🌟 Bienvenue chez CashLink')
+        ->greeting('Bonjour, ' . $this->user_name . ' 👋')
+        ->line('Merci de vous être inscrit à notre application. Voici les détails de votre compte :')
+        ->line('ID utilisateur : ' . $this->accountData['user_id'])
+        ->line('Type de compte : ' . $this->accountData['account_type'])
+        ->line('Pack : ' . $this->accountData['pack'])
+        ->line('Plafond : ' . $this->accountData['plafond'] . ' FCFA')
+        ->line('Montant : ' . $this->accountData['montant'] . ' FCFA')
+        ->line('Votre RIB : ' . $this->user_rib)
+        ->line('Tarif mensuel : ' . $this->accountData['max_withdrawal'] . ' FCFA')
+        ->line('Veuillez garder ces détails en sécurité. 🔐')
+        ->action('🌐 Visitez notre site web', url('/'))
+        ->line('Si vous avez des questions, n\'hésitez pas à répondre à cet email. Nous sommes là pour vous aider ! 🤝')
+        ->salutation('Meilleures salutations, 👋 Équipe CashLink');
+
+    
+    
+        
+        
+        
+        
+        }
 
     /**
      * Get the array representation of the notification.

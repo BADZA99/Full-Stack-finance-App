@@ -45,10 +45,9 @@ public function SendEmail($id)
     {
         try {
             $user = User::find($id);
-            // recupere le compte du user
             $account = account::where('user_id', $id)->first();
             if ($user) {
-                $user->notify(new SignupSuccessNotification($account, $user->nom));
+                $user->notify(new SignupSuccessNotification($account, $user->nom,$user->rib));
 
                 return response()->json(['message' => 'email sent'], 200);
             } 

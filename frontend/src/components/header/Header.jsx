@@ -6,6 +6,8 @@ import useThemeStore from '../../../store/themeStore';
 import useUserStore from '../../../store/userStore';
 import axios from "axios";
 import { useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Header() {
      const theme = useThemeStore((state) => state.theme);
@@ -23,11 +25,15 @@ export default function Header() {
             if (response) setUser(null);
             // console.log(user);
             // aller a la page d'acceuil
-           router.push("/");
+            // toast
+            toast.success("You are now logged out");
+            router.push("/");
 
 
         } catch (e) {
             console.log(e);
+            // toast
+
         }
     }
   return (

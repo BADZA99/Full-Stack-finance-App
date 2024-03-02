@@ -48,17 +48,12 @@ public function SendEmail($id)
             $account = account::where('user_id', $id)->first();
             if ($user) {
                 $user->notify(new SignupSuccessNotification($account, $user->nom,$user->rib));
-
                 return response()->json(['message' => 'email sent'], 200);
             } 
         } catch (\Exception $e) {
             // Gérer l'exception ici
             return response()->json(['message' => $e->getMessage()], 500);
         }
-
-
-        // récupérer les infos de compte du user
-        // $account = Account::where('user_id', $request->idUser)->first();
         
         
     }

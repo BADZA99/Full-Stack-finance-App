@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import axios from "axios";
 import useUserStore from '../../../store/userStore';
 import { redirect } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function page() {
@@ -27,18 +29,23 @@ export default function page() {
 
             if (response.data) {
               const response2 = await axios.get("/user");
-              // console.log(response2);
               setUser(response2.data);
+
+              toast.success("You are now logged in");
               redirect("/");
             }
 
+
         } catch (error) {
             console.log(error);
+            // toast.error("Invalid email or password");
         }
     };
 
     return (
         <StyledLogin>
+            <ToastContainer position="bottom-right" />
+
             <h1>Ravis de vous revoir !</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="email">Email</label>

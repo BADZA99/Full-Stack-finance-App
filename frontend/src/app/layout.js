@@ -12,6 +12,8 @@ import axios from "axios";
 import useUserStore from "../../store/userStore";
 import { useEffect } from "react";
 import Header from "../components/header/Header";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 Axios.defaults.baseURL = "http://localhost:8000/api/";
 // pass cookie from the backend
@@ -41,13 +43,15 @@ export default function RootLayout({ children }) {
   return (
       <html lang="en">
           <head>
-            <link rel="icon" href="/images/icone.png" />
+              <link rel="icon" href="/images/icone.png" />
               <title>CashLink</title>
               <meta name="description" content="Coded by PAPA BN" />
           </head>
           <ThemeProvider theme={THEME[theme]}>
               <Header />
-              <body >{children}</body>
+              <body>
+                {children}
+                </body>
           </ThemeProvider>
       </html>
   );

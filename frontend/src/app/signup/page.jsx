@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export default function SignupPage() {
@@ -29,50 +30,14 @@ export default function SignupPage() {
         if(response.status === 201){
             CreateAccount(data,response.data.id);
         }
-        
-        
-        // const accountData = {
-        //        // Remplissez ici avec les informations du compte
-        //        account_type: data.compte,
-        //        pack: data.compte === "courant" ? data.pack : "Nopack",
-        //        plafond:
-        //            data.compte === "courant"
-        //                ? data.pack === "gold"
-        //                    ? 10000000
-        //                    : data.pack === "premium"
-        //                    ? 5000000
-        //                    : 1000000
-        //                : 0,
-        //        montant:
-        //            data.compte === "courant"
-        //                ? data.pack === "gold"
-        //                    ? 10000
-        //                    : data.pack === "premium"
-        //                    ? 5000
-        //                    : 1000
-        //                : 0,
-        //        max_withdrawal:
-        //            data.compte === "courant"
-        //                ? data.pack === "gold"
-        //                    ? 12000
-        //                    : data.pack === "premium"
-        //                    ? 5000
-        //                    : 3000
-        //                : 0,
-        //        user_id: response.data.id,
-        //    };
 
-
-        //    const accountResponse = await axios.post("/newAccount", accountData);
-        //       console.log(accountResponse);
-     
-
-         
+       
 
         //    router.push("/login");
        
     } catch (error) {
            console.log(error);
+           toast.error('Error creating account!');
        }
    };
 
@@ -119,6 +84,7 @@ console.log("infos compte: ",accountData)
         })
         .catch((error) => {
             console.log(error);
+            toast.error("Error creating account");
         });
 }
 
@@ -128,20 +94,25 @@ const SendEmail = async (id) => {
         .get(`/sendEmail/${id}`)
         .then((response) => {
             console.log(response);
+            
         })
         .catch((error) => {
             console.log(error);
+           toast.error("Error on sending email");
+
         });
 
 }   
 
+const notify = () => toast.success("Signup successful Check your Email");
 
 
-    
 
   return (
       <>
           <StyledSignup>
+              <ToastContainer position="bottom-right" />
+
               <h1>Rejoins la communaute CashLink</h1>
               <form ref={form} onSubmit={handleSubmit(onSubmit)}>
                   {/* nom,prenom,telephone,email,mot de passe avec leur label */}
@@ -213,7 +184,6 @@ const SendEmail = async (id) => {
                       type="email"
                       name="email"
                       id="email"
-                   
                       {...register("email", {
                           required: true,
                           pattern:
@@ -231,7 +201,6 @@ const SendEmail = async (id) => {
                       type="password"
                       name="password"
                       id="password"
-                  
                       {...register("password", {
                           required: true,
                           maxLength: 20,

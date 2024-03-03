@@ -16,7 +16,7 @@ export default function Header() {
      const user= useUserStore((state) => state.user);
     
   const pathname=usePathname();
-            console.log(user);
+            // console.log(user);
 
     const logout = async () => {
         try {
@@ -65,15 +65,17 @@ export default function Header() {
                           services
                       </span>
                   </Link>
-                  {/* <Link href="/services">
+                  <Link href="/client">
                       <span
                           className={
-                              pathname === "/services" ? "activeLink" : ""
+                              pathname === "/client"
+                                  ? "activeLink"
+                                  : ""
                           }
                       >
-                          services
+                          Mon profile
                       </span>
-                  </Link> */}
+                  </Link>
               </div>
               <div className="left">
                   <div className="theme" onClick={toggleTheme}>

@@ -16,6 +16,7 @@ export const THEME = {
         label: "white",
         btnSign: "#f0ad4e",
         btnSignText: "black",
+        bgSideMenu: "#f0ad4e",
     },
     dark: {
         background: "#000",
@@ -33,5 +34,6 @@ export const THEME = {
         label: "black",
         btnSign: "black",
         btnSignText: "white",
+        bgSideMenu: "#f0ad4e",
     },
 };

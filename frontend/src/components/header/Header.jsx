@@ -65,6 +65,15 @@ export default function Header() {
                           services
                       </span>
                   </Link>
+                  {/* <Link href="/services">
+                      <span
+                          className={
+                              pathname === "/services" ? "activeLink" : ""
+                          }
+                      >
+                          services
+                      </span>
+                  </Link> */}
               </div>
               <div className="left">
                   <div className="theme" onClick={toggleTheme}>

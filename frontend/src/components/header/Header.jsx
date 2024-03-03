@@ -65,7 +65,7 @@ export default function Header() {
                           services
                       </span>
                   </Link>
-                  <Link href="/client">
+                  {/* <Link href="/client">
                       <span
                           className={
                               pathname === "/client"
@@ -75,7 +75,22 @@ export default function Header() {
                       >
                           Mon profile
                       </span>
-                  </Link>
+                  </Link> */}
+                  {
+                        user !== null && (
+                            <Link href="/client">
+                                <span
+                                    className={
+                                        pathname === "/client"
+                                            ? "activeLink"
+                                            : ""
+                                    }
+                                >
+                                    Mon profile
+                                </span>
+                            </Link>
+                        ) 
+                  }
               </div>
               <div className="left">
                   <div className="theme" onClick={toggleTheme}>

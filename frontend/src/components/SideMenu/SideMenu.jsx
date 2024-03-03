@@ -10,17 +10,21 @@ import { IoStatsChartSharp } from "react-icons/io5";
 import { TfiStatsUp } from "react-icons/tfi";
 import { AiOutlineTransaction } from "react-icons/ai";
 import { usePathname } from "next/navigation";
+import useUserStore from "../../../store/userStore";
 
 
 
 export default function SideMenu() {
   const pathname = usePathname();
+     const user = useUserStore((state) => state.user);
 
     return (
         <StyledSideMenu>
             <div className="userInfos">
                 <FaUser size={70} color="" />
-                <h3>username</h3>
+                <h3>{
+                    user?.prenom + " " + user?.nom
+                    }</h3>
             </div>
             <ul>
                 <li>

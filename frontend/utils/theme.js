@@ -2,6 +2,7 @@ export const THEME = {
     light: {
         background: "#fff",
         text: "#000",
+        modalText: "#000",
         primary: "#0275d8",
         secondary: "#6c757d",
         success: "#5cb85c",
@@ -35,5 +36,6 @@ export const THEME = {
         btnSign: "black",
         btnSignText: "white",
         bgSideMenu: "#f0ad4e",
+        modalText: "#fff",
     },
 };

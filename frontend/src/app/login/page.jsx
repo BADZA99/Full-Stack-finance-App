@@ -32,7 +32,7 @@ export default function page() {
               setUser(response2.data);
 
               toast.success("You are now logged in");
-              redirect("/");
+              router.push("/client");
             }
 
 

@@ -32,6 +32,8 @@ export const StyledDashboard = styled.div`
             p {
                 font-size: 1.2rem;
             }
+
+           
         }
     }
     .transBtns {

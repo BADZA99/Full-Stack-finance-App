@@ -26,5 +26,10 @@ class CreditCardController extends Controller
         return credit_card::all();
     }
 
+    // recuperer le carte d'un user
+    public function getCreditCardByAccountId($id){
+        return credit_card::where('account_id', $id)->get();
+    }
+
     
 }

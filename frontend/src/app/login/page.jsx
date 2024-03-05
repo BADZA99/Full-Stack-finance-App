@@ -13,6 +13,7 @@ export default function page() {
     // appel user et setuser de useUserStore
     const setUser = useUserStore((state) => state.setUser);
     const user = useUserStore((state) => state.user);
+    const { session, activeSession } = useUserStore();
     // console.log(user);
     // const router = useRouter();
     const {
@@ -30,6 +31,8 @@ export default function page() {
             if (response.data) {
               const response2 = await axios.get("/user");
               setUser(response2.data);
+              activeSession();
+
 
               toast.success("You are now logged in");
               router.push("/client");
@@ -37,7 +40,7 @@ export default function page() {
 
 
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             // toast.error("Invalid email or password");
         }
     };

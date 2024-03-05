@@ -25,11 +25,14 @@ export default function RootLayout({ children }) {
 // utilise le theme du store
     const theme = useThemeStore((state) => state.theme);
     const { user, setUser } = useUserStore();
+    const { session, activeSession } = useUserStore();
+
 
       const fetchConnectedUser = async () => {
           try {
               const response = await axios.get("/user");
               setUser(response.data);
+              activeSession();
           } catch (e) {
               console.log(e);
           }

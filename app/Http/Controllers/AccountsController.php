@@ -40,6 +40,11 @@ class AccountsController extends Controller
         return account::find($id);
     }
 
+    // compte par id du user
+    public function accountByUserId($id){
+        return account::where('user_id', $id)->first();
+    }
+
     // cree une foncrion qui envoie un email a un user
 public function SendEmail($id)
     {

@@ -39,12 +39,14 @@ Route::get('/user/{id}', [UserController::class, 'userById']);
 Route::post('/newAccount', [AccountsController::class, 'createAccount']);
 Route::get('/allAccounts', [AccountsController::class, 'allAccounts']);
 Route::get('/account/{id}', [AccountsController::class, 'accountById']);
+Route::get('/accountByUserId/{id}', [AccountsController::class, 'accountByUserId']);
 Route::get('/sendEmail/{id}', [AccountsController::class, 'SendEmail']);
 
 
 // createCreditCard
 Route::post('/createCreditCard', [CreditCardController::class, 'createCreditCard']);
 Route::get('/allCreditCards', [CreditCardController::class, 'allCreditCards']);
+Route::get('/CreditCardByAccountId/{id}', [CreditCardController::class, 'getCreditCardByAccountId']);
 
 
 // transactions routes

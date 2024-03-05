@@ -79,6 +79,8 @@ console.log("infos compte: ",accountData)
         .post("/newAccount", accountData)
         .then((responseAccount) => {
             console.log("reponse creation compte",responseAccount);
+            // generer carte bancaire
+            generateCard(responseAccount.data.id, responseAccount.data.pack);
             // envoyer mail
             SendEmail(idUser);
         })
@@ -87,6 +89,23 @@ console.log("infos compte: ",accountData)
             toast.error("Error creating account");
         });
 }
+
+// fonction qui genere la carte bancaire
+const generateCard = async (accountId,typeCarte) => {
+    const cardData = {
+        account_id: accountId,
+        type_carte: typeCarte,
+    };
+    await axios
+        .post(`/createCreditCard/`, cardData)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+            toast.error("Error generating card");
+        });
+};
 
 // creer une fonction qui envoie l'email
 const SendEmail = async (id) => {

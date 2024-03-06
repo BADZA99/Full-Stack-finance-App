@@ -40,7 +40,10 @@ Route::post('/newAccount', [AccountsController::class, 'createAccount']);
 Route::get('/allAccounts', [AccountsController::class, 'allAccounts']);
 Route::get('/account/{id}', [AccountsController::class, 'accountById']);
 Route::get('/accountByUserId/{id}', [AccountsController::class, 'accountByUserId']);
+Route::post('/AugmenterSolde', [AccountsController::class, 'AugmenterSolde']);
+Route::post('/DiminuerSolde', [AccountsController::class, 'DiminuerSolde']);
 Route::get('/sendEmail/{id}', [AccountsController::class, 'SendEmail']);
+
 
 
 // createCreditCard

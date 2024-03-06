@@ -62,4 +62,51 @@ public function SendEmail($id)
         
         
     }
+
+    // fonction qui augmente le sold du user
+    public function AugmenterSolde(Request $request){
+       try {
+            $account = account::where('user_id', $request->user_id)->first();
+
+            if ($request->montant < $account->plafond && $request->montant > 0 && $request->montant < ($request->montant +$account->montant)) {
+                # code...
+                $account->montant =
+                $account->montant + $request->montant;
+                $account->save();
+            } else {
+                return response()->json(['message' => 'solde insuffisant'], 500);
+            }
+            
+
+            return response()->json(['message' => 'solde updated'], 200);
+           }catch(\Exception $e){
+                return response()->json(['message' => $e->getMessage()], 500);
+              }  
+    }
+
+    //fonction qui diminue le sold du user
+     public function DiminuerSolde(Request $request){
+         try {
+             $account = account::where('user_id', $request->user_id)->first();
+    
+             if
+         ($request->montant <= $account->montant && $request->montant > 0  ) {
+                 $account->montant =
+                 $account->montant - $request->montant;
+                 $account->save();
+             } else {
+                 return response()->json(['message' => 'solde insuffisant'], 500);
+             }
+             
+             return response()->json(['message' => 'solde diminuer'], 200);
+            }catch(\Exception $e){
+                 return response()->json(['message' => $e->getMessage()], 500);
+               }  
+     }
 }
+
+
+
+
+
+

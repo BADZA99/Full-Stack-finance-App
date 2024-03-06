@@ -7,7 +7,7 @@ export default function CreditCard({
   type,numero,dateExp,cvv,titulaire
 }) {
   // affiche les props
-  console.log("type",type,"numero",numero,"dateExp",dateExp,"cvv",cvv,"titulaire",titulaire);
+  // console.log("type",type,"numero",numero,"dateExp",dateExp,"cvv",cvv,"titulaire",titulaire);
   return (
       <StyledCreditCard>
             <div className="cardHeader">

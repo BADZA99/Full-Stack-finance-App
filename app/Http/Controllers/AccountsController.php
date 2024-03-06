@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\account;
 use App\Models\User;
+use App\Models\credit_card;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Resend\Laravel\Facades\Resend;
@@ -103,6 +104,31 @@ public function SendEmail($id)
                  return response()->json(['message' => $e->getMessage()], 500);
                }  
      }
+
+
+
+    //  fonction qui recupere un numero de carte et verifie si cette numero e carte  existe dans la base de donnes ou pas
+    public function VerifierCarte(Request $request){
+        try {
+            $CarteCredit = credit_card::where('numero_carte', $request->numCarte)->first();
+            if ($CarteCredit->numero_carte == $request->numCarte) {
+                // verifier si la carte lie a ce compte a un solde superieur a montant
+                $account = account::where('id', $CarteCredit->account_id)->first();
+                if ($account->montant > $request->montant) {
+                    return response()->json(['message' => 'carte valide'], 200);
+                } else {
+                    return response()->json(['message' => 'solde insuffisant'], 500);
+                }
+                return response()->json(['message' => 'carte valide'], 200);
+            } else {
+                return response()->json(['message' => 'carte invalide'], 500);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+
 }
 
 

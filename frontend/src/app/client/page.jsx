@@ -4,7 +4,8 @@ import { StyledDashboard } from "./Dashboard.styled";
 import CreditCard from "../../components/CreditCard/CreditCard";
 import useUserStore from "../../../store/userStore";
 import axios from "axios";
-import { CardFace } from "../../components/CreditCard/card.styled";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function page() {
     const [sendModalOpen, setsendModalOpen] = useState(false);
@@ -14,7 +15,37 @@ export default function page() {
     const [receiveModalOpen, setreceiveModalOpen] = useState(false);
     const { session, activeSession } = useUserStore();
     const { user, setUser } = useUserStore();
+  const [cardNumber, setCardNumber] = useState("");
+  const [amount, setAmount] = useState("");
 
+  const handleSubmit = (event) => {
+      event.preventDefault();
+      setCardNumber(event.target.elements[0].value);
+      setAmount(event.target.elements[1].value);
+      console.log(amount,cardNumber);
+
+      if (
+          cardNumber &&
+          amount > 0 
+      ) {
+           try {
+                verifyCreditCard(cardNumber,amount).then((response) => {
+                     if (response) {
+                            toast.success("Card verified");
+                        console.log(user?.id);
+                          increaseUserAmount(user?.id, amount);
+                     } else {
+                          toast.error("Invalid card number");
+                     }
+                });
+            
+           } catch (error) {
+                console.log(error);
+                toast.error("Error during the verification operation");
+           }
+      }
+
+  };
 
     useLayoutEffect(() => {
         if (session) {
@@ -51,6 +82,37 @@ export default function page() {
         }
         catch (e) {
             console.log(e);
+        }
+    };
+
+    // fonction augmente le solde du user
+    const increaseUserAmount = async (userId, amount) => {
+        try {
+            const response = await axios.post(`/AugmenterSolde`, {
+                user_id: userId,
+                montant: amount,
+            });
+            console.log("increase amount response",response.data);
+        } catch (e) {
+            console.log(e);
+            toast.error("Error during the  increase amount operation");
+        }
+    };
+
+
+    // FONCTION QUI VERIFIE LA CARTE BACAIRE
+    const verifyCreditCard = async (cardNumber,montant) => {
+        try {
+            const response = await axios.post(`/VerifierCarte`,{
+                numCarte: cardNumber,
+                montant:montant,
+
+            });
+            console.log("verif carte reponse",response.data);
+            return response.data;
+        } catch (e) {
+            console.log(e);
+            toast.error("Error during the verification operation");
         }
     };
 
@@ -144,10 +206,10 @@ export default function page() {
                                     X
                                 </span>
                             </h2>
-                            <form action="">
+                            <form onSubmit={handleSubmit}>
                                 <input
                                     type="text"
-                                    placeholder="Email de l'expéditeur"
+                                    placeholder="N° carte bancaire"
                                 />
                                 <input type="text" placeholder="Montant" />
                                 <button>Recevoir</button>

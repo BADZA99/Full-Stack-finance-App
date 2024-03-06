@@ -11,8 +11,9 @@ class CreditCardController extends Controller
     public function createCreditCard(Request $request){
         $creditCard = credit_card::create([
             'account_id' => $request->account_id,
-            // GENERER UNE SERIE DE 16 CARACTERE CHIFFRE ET LETTRE
-            'numero_carte' => strtoupper(bin2hex(openssl_random_pseudo_bytes(8))),
+            // GENERER UNE SERIE DE 16 CARACTERE CHIFFRE uniquement
+            // 'numero_carte' => strtoupper(bin2hex(openssl_random_pseudo_bytes(8))),
+            'numero_carte' => rand(1000000000000000, 9999999999999999),
             // date_expiration date du jour plus 5 ans
             'date_expiration' => date('Y-m-d', strtotime('+5 years')),
             'type_carte' => $request->type_carte,

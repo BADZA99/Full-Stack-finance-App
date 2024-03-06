@@ -1,6 +1,6 @@
 export const THEME = {
     light: {
-        background: "#fff",
+        background: "#f1f1f1",
         text: "#000",
         modalText: "#000",
         primary: "#0275d8",
@@ -18,6 +18,7 @@ export const THEME = {
         btnSign: "#f0ad4e",
         btnSignText: "black",
         bgSideMenu: "#f0ad4e",
+        bgCreditCard: "#ccc",
     },
     dark: {
         background: "#000",
@@ -37,5 +38,6 @@ export const THEME = {
         btnSignText: "white",
         bgSideMenu: "#f0ad4e",
         modalText: "#fff",
+        bgCreditCard: "#6c757d",
     },
 };

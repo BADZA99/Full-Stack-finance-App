@@ -47,7 +47,7 @@ export default function page() {
                 `/CreditCardByAccountId/${AccountId}`
             );
             console.log("user credit card",response.data);
-            setUserCreditCardInfos(response.data);
+            setUserCreditCardInfos(response.data[0]);
         }
         catch (e) {
             console.log(e);
@@ -80,12 +80,16 @@ export default function page() {
                                 retrait mensuel :{" "}
                                 {UserAccountInfos?.max_withdrawal} Fcfa
                             </p>
-                            <p>
-                                RIB :{" "}
-                                {user?.rib} 
-                            </p>
+                            <p>RIB : {user?.rib}</p>
                         </div>
-                        <CreditCard className="carte" />
+                        <CreditCard
+                            className="carte"
+                            type={UserCreditCardInfos?.type_carte}
+                            numero={UserCreditCardInfos?.numero_carte}
+                            dateExp={UserCreditCardInfos?.date_expiration}
+                            cvv={UserCreditCardInfos?.cvv}
+                            titulaire={user?.nom + " " + user?.prenom}
+                        />
                     </div>
 
                     <div className="transBtns">

@@ -44,6 +44,7 @@ Route::post('/AugmenterSolde', [AccountsController::class, 'AugmenterSolde']);
 Route::post('/DiminuerSolde', [AccountsController::class, 'DiminuerSolde']);
 Route::get('/sendEmail/{id}', [AccountsController::class, 'SendEmail']);
 Route::post('/VerifierCarte', [AccountsController::class, 'VerifierCarte']);
+Route::post('/AccountByCreditCard', [AccountsController::class, 'getAccountByCreditCard']);
 
 
 // createCreditCard
@@ -57,3 +58,4 @@ Route::get('/CreditCardByAccountId/{id}', [CreditCardController::class, 'getCred
 Route::post('/newTransaction', [TransactionsController::class, 'createTransaction']);
 Route::get('/allTransactions', [TransactionsController::class, 'allTransactions']);
 Route::get('/transaction/{id}', [TransactionsController::class, 'transactionById']);
+Route::get('/transactionByAccountId/{id}', [TransactionsController::class, 'transactionByAccountId']);

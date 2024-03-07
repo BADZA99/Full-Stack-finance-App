@@ -32,5 +32,7 @@ class CreditCardController extends Controller
         return credit_card::where('account_id', $id)->get();
     }
 
+   
+
     
 }

@@ -28,4 +28,9 @@ class TransactionsController extends Controller
     public function transactionById($id){
         return transaction::find($id);
     }
+
+    // transaction par sender_account_id  ou  receiver_account_id
+    public function transactionByAccountId($id){
+        return transaction::where('sender_account_id', $id)->orWhere('receiver_account_id', $id)->get();
+    }
 }

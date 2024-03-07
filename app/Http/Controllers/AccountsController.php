@@ -69,7 +69,7 @@ public function SendEmail($id)
        try {
             $account = account::where('user_id', $request->user_id)->first();
 
-            if ($request->montant < $account->plafond && $request->montant > 0 && $request->montant < ($request->montant +$account->montant)) {
+            if ($request->montant < $account->plafond && $request->montant > 0 && $request->montant < ($request->montant + $account->montant)) {
                 # code...
                 $account->montant =
                 $account->montant + $request->montant;
@@ -120,6 +120,22 @@ public function SendEmail($id)
                     return response()->json(['message' => 'solde insuffisant'], 500);
                 }
                 return response()->json(['message' => 'carte valide'], 200);
+            } else {
+                return response()->json(['message' => 'carte invalide'], 500);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    // recuperer un user par sa carte de credit
+    public function getAccountByCreditCard(Request $request){
+        try {
+            $CarteCredit = credit_card::where('numero_carte', $request->numCarte)->first();
+            if ($CarteCredit->numero_carte == $request->numCarte) {
+                $account = account::where('id', $CarteCredit->account_id)->first();
+                // $user = User::where('id', $account->user_id)->first();
+                return $account;
             } else {
                 return response()->json(['message' => 'carte invalide'], 500);
             }

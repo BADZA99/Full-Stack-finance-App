@@ -15,37 +15,81 @@ export default function page() {
     const [receiveModalOpen, setreceiveModalOpen] = useState(false);
     const { session, activeSession } = useUserStore();
     const { user, setUser } = useUserStore();
-  const [cardNumber, setCardNumber] = useState("");
-  const [amount, setAmount] = useState("");
+    const [cardNumber, setCardNumber] = useState("");
+    const [amount, setAmount] = useState("");
+    const [senderInfos, setSenderInfos] = useState();
 
-  const handleSubmit = (event) => {
-      event.preventDefault();
-      setCardNumber(event.target.elements[0].value);
-      setAmount(event.target.elements[1].value);
-      console.log(amount,cardNumber);
+    const handleReceiveSubmit = (event) => {
+        event.preventDefault();
+        setCardNumber(event.target.elements[0].value);
+        setAmount(event.target.elements[1].value);
+        // console.log(amount, cardNumber);
 
-      if (
-          cardNumber &&
-          amount > 0 
-      ) {
-           try {
-                verifyCreditCard(cardNumber,amount).then((response) => {
-                     if (response) {
-                            toast.success("Card verified");
-                        console.log(user?.id);
-                          increaseUserAmount(user?.id, amount);
-                     } else {
-                          toast.error("Invalid card number");
-                     }
+        if (cardNumber && amount > 0) {
+            try {
+                verifyCreditCard(cardNumber, amount).then((response) => {
+                    if (response) {
+                        toast.success("Card verified");
+                        // console.log(user?.id);
+                        increaseUserAmount(user?.id, amount);
+                        setreceiveModalOpen(false);
+                    } else {
+                        toast.error("Invalid card number");
+                    }
                 });
-            
-           } catch (error) {
+            } catch (error) {
                 console.log(error);
                 toast.error("Error during the verification operation");
-           }
-      }
+            }
+        }
+    };
+    // fonction qui retourne un user par sa carte bancaire
+    const fetchUserByCard = async (cardNumber) => {
+        try {
+            const response = await axios.post(`/AccountByCreditCard`, {
+                numCarte: cardNumber,
+            });
+            console.log("user by card response", response.data);
+            return response.data;
+        } catch (e) {
+            console.log(e);
+            toast.error("Error during the user by card operation");
+        }
+    };
 
-  };
+    const handleSendSubmit = (event) => {
+        event.preventDefault();
+        setCardNumber(event.target.elements[0].value);
+        setAmount(event.target.elements[1].value);
+        console.log(amount, cardNumber);
+
+        if (cardNumber && amount > 0) {
+            try {
+                verifyCreditCard(cardNumber, amount).then((response) => {
+                    if (response) {
+                        toast.success("Card verified");
+                        fetchUserByCard(cardNumber).then((receiverInfos) => {
+                            console.log(receiverInfos);
+                            createTransaction(
+                                receiverInfos?.id,
+                                UserAccountInfos?.id,
+                                "depot",
+                                amount
+                            );
+                            increaseUserAmount(receiverInfos?.user_id, amount);
+                            decreaseUserAmount(user?.id, amount);
+                            setsendModalOpen(false);
+                        });
+                    } else {
+                        toast.error("Invalid card number");
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+                toast.error("Error during the verification operation");
+            }
+        }
+    };
 
     useLayoutEffect(() => {
         if (session) {
@@ -55,21 +99,19 @@ export default function page() {
 
     useEffect(() => {
         fetchConnectedUserAccountInfos(user?.id);
-
     }, [user]);
-
 
     //  cree une fonction qui recupere le compte bancaire  d'un user
     const fetchConnectedUserAccountInfos = async (userId) => {
         try {
             const response = await axios.get(`/accountByUserId/${userId}`);
-            console.log("account infos user",response.data);
+            console.log("account infos user", response.data);
             setUserAccountInfos(response.data);
             fetchConnectedUserCardInfos(response.data.id);
         } catch (e) {
             console.log(e);
         }
-    }
+    };
 
     //fonction qui recupere les infos de la carte bancaire du user
     const fetchConnectedUserCardInfos = async (AccountId) => {
@@ -77,10 +119,9 @@ export default function page() {
             const response = await axios.get(
                 `/CreditCardByAccountId/${AccountId}`
             );
-            console.log("user credit card",response.data);
+            console.log("user credit card", response.data);
             setUserCreditCardInfos(response.data[0]);
-        }
-        catch (e) {
+        } catch (e) {
             console.log(e);
         }
     };
@@ -92,23 +133,36 @@ export default function page() {
                 user_id: userId,
                 montant: amount,
             });
-            console.log("increase amount response",response.data);
+            console.log("increase amount response", response.data);
         } catch (e) {
             console.log(e);
             toast.error("Error during the  increase amount operation");
         }
     };
 
+    // fonction qui diminue le solde du user
+    const decreaseUserAmount = async (userId, amount) => {
+        try {
+            const response = await axios.post(`/DiminuerSolde`, {
+                user_id: userId,
+                montant: amount,
+            });
+            console.log("decrease amount response", response.data);
+        } catch (e) {
+            console.log(e);
+            toast.error("Error during the  decrease amount operation");
+        }
+    };
+
 
     // FONCTION QUI VERIFIE LA CARTE BACAIRE
-    const verifyCreditCard = async (cardNumber,montant) => {
+    const verifyCreditCard = async (cardNumber, montant) => {
         try {
-            const response = await axios.post(`/VerifierCarte`,{
+            const response = await axios.post(`/VerifierCarte`, {
                 numCarte: cardNumber,
-                montant:montant,
-
+                montant: montant,
             });
-            console.log("verif carte reponse",response.data);
+            console.log("verif carte reponse", response.data);
             return response.data;
         } catch (e) {
             console.log(e);
@@ -116,13 +170,31 @@ export default function page() {
         }
     };
 
-
+    // fonction qui cree une transaction
+    const createTransaction = async (
+        sender_account_id,
+        receiver_account_id,
+        type_transaction,
+        amount
+    ) => {
+        try {
+            const response = await axios.post(`/newTransaction`, {
+                sender_account_id: sender_account_id,
+                receiver_account_id: receiver_account_id,
+                type_transaction: type_transaction,
+                montant: amount,
+            });
+            console.log("create transaction response", response.data);
+        } catch (e) {
+            console.log(e);
+            toast.error("Error during the transaction creation operation");
+        }
+    };
 
     // console.log("session: ",session)
     // console.log("user: ",user)
     // console.log("UserAccountInfos: ", UserAccountInfos);
-// max_withdrawal;
-
+    // max_withdrawal;
 
     return (
         <>
@@ -183,7 +255,7 @@ export default function page() {
                                     X
                                 </span>
                             </h2>
-                            <form action="">
+                            <form onSubmit={handleSendSubmit}>
                                 <input
                                     type="text"
                                     placeholder="Email du destinataire"
@@ -206,13 +278,13 @@ export default function page() {
                                     X
                                 </span>
                             </h2>
-                            <form onSubmit={handleSubmit}>
+                            <form onSubmit={handleReceiveSubmit}>
                                 <input
                                     type="text"
                                     placeholder="N° carte bancaire"
                                 />
                                 <input type="text" placeholder="Montant" />
-                                <button>Recevoir</button>
+                                <button type="submit">Recevoir</button>
                             </form>
                         </div>
                     )}

@@ -10,4 +10,26 @@ export const StyledTransactions = styled.div`
     width: 70%;
     height: 40vw;
     border: 1px solid red;
+
+
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px;
+            border: 1px solid red;
+            height: 45%;
+            padding: 1%;
+            h3{
+                font-size: 2rem;
+            }
+            span{
+                font-size: 1.2rem;
+            }
+        }
+    }
 `;

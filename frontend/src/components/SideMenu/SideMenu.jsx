@@ -39,14 +39,6 @@ export default function SideMenu() {
                     </Link>
                 </li>
                 <li>
-                    <IoMdNotifications size={20} />
-                    <Link href="/client/Notifications"
-                        className={
-                            pathname === "/client/Notifications" ? "activeLink" : ""
-                        }
-                    >Notifications</Link>
-                </li>
-                <li>
                     <AiOutlineTransaction size={20} />
                     <Link href="/client/Transactions"
                         className={

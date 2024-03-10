@@ -6,19 +6,22 @@ import { StyledTransactions } from "../Transactions/transaction.styled";
 
 export default function page() {
     const { user, setUser } = useUserStore();
-    const [INFOS, SETINFOS] = useState("");
+    const [UserTransactions, setUserTransactions] = useState([]);
+    const [UserAccountInfos, setUserAccountInfos] = useState();
+    const [UsersTransactions, setUsersTransactions] = useState([]);
 
-   useLayoutEffect(() => {
-       getUserAccount(user?.id);
-   }, [user]);
+    useLayoutEffect(() => {
+        getUserAccount(user?.id);
+    }, [user]);
     // fonction qui retourne le compte d'un user
     const getUserAccount = async (userId) => {
         try {
             const response = await axios.get(`/accountByUserId/${userId}`);
-            console.log("account user",response);
-            SETINFOS(response.data);
+            // console.log("account user infos",response);
+            setUserAccountInfos(response.data);
+            // console.log(response.data);
             if (response.status === 200) {
-              getUserTransactions(response.data.id);
+                getUserTransactions(response.data.id);
             }
         } catch (error) {
             console.error(error);
@@ -30,16 +33,66 @@ export default function page() {
             const response = await axios.get(
                 `/transactionByAccountId/${accountId}`
             );
-            console.log("user transactions",response);
+            // console.log("user transactions",response);
+            setUserTransactions(response.data);
+            if (response.status === 200) {
+                //    parcourir usertransaction et pour chaque transaction rechercher les userstransactions
+                response.data.forEach((transaction) => {
+                    getUsersByTransaction(transaction.id);
+                });
+            }
         } catch (error) {
             console.error(error);
         }
     };
 
-    console.log(INFOS);
-    return <StyledTransactions>
-        <ul>
-            <li>Mr/Mme<h3>badara</h3> vous a fait un virement de <h3>150€</h3> le <span>20/10/2024</span></li>
-        </ul>
-        </StyledTransactions>;
+    // fonction qui retourne les 2 users d'une transsaction
+    const getUsersByTransaction = async (transactionId) => {
+        try {
+            const response = await axios.get(
+                `/usersByTransactionId/${transactionId}`
+            );
+            // console.log("users in transaction",response);
+            setUsersTransactions((prevUsersTransactions) => [
+                ...prevUsersTransactions,
+                ...(Array.isArray(response.data)
+                    ? response.data
+                    : [response.data]),
+            ]);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    // console.log("user transactions", UserTransactions);
+    // console.log("users between transactions", UsersTransactions);
+    // console.log("user account info", UserAccountInfos);
+    //   type_transaction
+    return (
+        <StyledTransactions>
+            <ul>
+                {UsersTransactions?.map((transaction, index) => {
+                    return (
+                        <li key={index}>
+                            {
+                                transaction?.receiver_user.id===user?.id ?"Vous avez recu de  ":"Vous avez envoye a "
+                            }
+                            <h3>{transaction?.sender_user.prenom +" "+transaction?.sender_user.nom}</h3>
+                            un{" "}
+                            {UserTransactions[index]?.type_transaction} de{" "}
+                            <h3>{UserTransactions[index]?.montant}Fcfa</h3>
+                            le{" "}
+                            <span>
+                                {new Date(UserTransactions[index]?.created_at).toLocaleString('en-US', {timeZone: 'UTC'})}
+                            </span>
+                        </li>
+                    );
+                })}
+
+                {
+                    UsersTransactions.length===0 && <h2>Vous n'avez pas encore de transactions</h2>
+                }
+            </ul>
+        </StyledTransactions>
+    );
 }

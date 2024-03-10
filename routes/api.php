@@ -59,3 +59,4 @@ Route::post('/newTransaction', [TransactionsController::class, 'createTransactio
 Route::get('/allTransactions', [TransactionsController::class, 'allTransactions']);
 Route::get('/transaction/{id}', [TransactionsController::class, 'transactionById']);
 Route::get('/transactionByAccountId/{id}', [TransactionsController::class, 'transactionByAccountId']);
+Route::get('/usersByTransactionId/{id}', [TransactionsController::class, 'usersByTransactionId']);

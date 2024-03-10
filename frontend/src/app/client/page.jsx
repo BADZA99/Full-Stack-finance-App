@@ -32,6 +32,7 @@ export default function page() {
                         toast.success("Card verified");
                         // console.log(user?.id);
                         increaseUserAmount(user?.id, amount);
+                         decreaseUserAmount(receiverInfos?.user_id, amount);
                         setreceiveModalOpen(false);
                     } else {
                         toast.error("Invalid card number");

@@ -10,4 +10,13 @@ export const StyledStats = styled.div`
     width: 70%;
     height: 40vw;
     border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .bar{
+        width: 50%;
+        height: 50%;
+    }
 `;

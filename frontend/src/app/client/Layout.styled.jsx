@@ -6,6 +6,7 @@ export const StyledLayout = styled.div`
     color: ${({ theme }) => theme.text};
     position: relative;
     margin-top: 50px;
+    height: 100vh;
     min-height: 100vh;
     width: 100vw;
     /* display: flex;

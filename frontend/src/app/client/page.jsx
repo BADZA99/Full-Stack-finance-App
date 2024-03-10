@@ -201,48 +201,61 @@ export default function page() {
         <>
             {access && (
                 <StyledDashboard>
-                    <div className="ClientInfos">
-                        <div className="accountsInfos">
-                            <h2>Informations de Compte</h2>
-                            <p>
-                                Type de Compte :{" "}
-                                {UserAccountInfos?.account_type}
-                            </p>
-                            <p>Type de pack : {UserAccountInfos?.pack}</p>
-                            <p>plafond : {UserAccountInfos?.plafond} Fcfa</p>
-                            <p>Solde : {UserAccountInfos?.montant} Fcfa</p>
-                            <p>
-                                retrait mensuel :{" "}
-                                {UserAccountInfos?.max_withdrawal} Fcfa
-                            </p>
-                            <p>RIB : {user?.rib}</p>
-                        </div>
-                        <CreditCard
-                            className="carte"
-                            type={UserCreditCardInfos?.type_carte}
-                            numero={UserCreditCardInfos?.numero_carte}
-                            dateExp={UserCreditCardInfos?.date_expiration}
-                            cvv={UserCreditCardInfos?.cvv}
-                            titulaire={user?.nom + " " + user?.prenom}
-                        />
-                    </div>
+                    {user?.etat === 1 && user.role_id === 2 && (
+                        <>
+                            <div className="ClientInfos">
+                                <div className="accountsInfos">
+                                    <h2>Informations de Compte</h2>
+                                    <p>
+                                        Type de Compte :{" "}
+                                        {UserAccountInfos?.account_type}
+                                    </p>
+                                    <p>
+                                        Type de pack : {UserAccountInfos?.pack}
+                                    </p>
+                                    <p>
+                                        plafond : {UserAccountInfos?.plafond}{" "}
+                                        Fcfa
+                                    </p>
+                                    <p>
+                                        Solde : {UserAccountInfos?.montant} Fcfa
+                                    </p>
+                                    <p>
+                                        retrait mensuel :{" "}
+                                        {UserAccountInfos?.max_withdrawal} Fcfa
+                                    </p>
+                                    <p>RIB : {user?.rib}</p>
+                                </div>
+                                <CreditCard
+                                    className="carte"
+                                    type={UserCreditCardInfos?.type_carte}
+                                    numero={UserCreditCardInfos?.numero_carte}
+                                    dateExp={
+                                        UserCreditCardInfos?.date_expiration
+                                    }
+                                    cvv={UserCreditCardInfos?.cvv}
+                                    titulaire={user?.nom + " " + user?.prenom}
+                                />
+                            </div>
 
-                    <div className="transBtns">
-                        <button
-                            onClick={() => {
-                                setsendModalOpen(!sendModalOpen);
-                            }}
-                        >
-                            Transfert de l'argent
-                        </button>
-                        <button
-                            onClick={() => {
-                                setreceiveModalOpen(!receiveModalOpen);
-                            }}
-                        >
-                            recharger le compte
-                        </button>
-                    </div>
+                            <div className="transBtns">
+                                <button
+                                    onClick={() => {
+                                        setsendModalOpen(!sendModalOpen);
+                                    }}
+                                >
+                                    Transfert de l'argent
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setreceiveModalOpen(!receiveModalOpen);
+                                    }}
+                                >
+                                    recharger le compte
+                                </button>
+                            </div>
+                        </>
+                    )}
 
                     {sendModalOpen && (
                         <div className="sendModal">

@@ -33,6 +33,9 @@ Route::middleware('auth:sanctum')->group(function (){
 // user routes
 Route::get('/allUsers', [UserController::class, 'allUsers']);
 Route::get('/user/{id}', [UserController::class, 'userById']);
+Route::put('/desactivateUser/{id}', [UserController::class, 'desactivateUser']);
+Route::put('/reactivateUser/{id}', [UserController::class, 'reactivateUser']);
+
 
 
 // accounts routes

@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    //fonction qui recupere tous les users
+    //fonction qui recupere tous les users a part le premier
     public function allUsers(){
-        return User::all();
+        return User::where('id', '!=', 1)->get();
     }
     
 
@@ -28,11 +28,19 @@ class UserController extends Controller
     }
 
     // fonction qui passe l'etat du user a 0
-    public function desativateUser($id){
+    public function desactivateUser($id){
         $user = User::find($id);
         $user->etat = 0;
         $user->save();
         return response()->json(['message' => 'user desactivated'], 200);
+    }
+
+    // fonction qui passe l'etat du user a 1
+    public function reactivateUser($id){
+        $user = User::find($id);
+        $user->etat = 1;
+        $user->save();
+        return response()->json(['message' => 'user reactivated'], 200);
     }
 
     

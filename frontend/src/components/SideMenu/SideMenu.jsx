@@ -9,6 +9,7 @@ import { GrTransaction } from "react-icons/gr";
 import { IoStatsChartSharp } from "react-icons/io5";
 import { TfiStatsUp } from "react-icons/tfi";
 import { AiOutlineTransaction } from "react-icons/ai";
+import { RiBankCardFill } from "react-icons/ri";
 import { usePathname } from "next/navigation";
 import useUserStore from "../../../store/userStore";
 
@@ -27,7 +28,7 @@ export default function SideMenu() {
             <ul>
                 {user?.etat === 1 && user.role_id === 1 ? (
                     <li>
-                        <IoMdNotifications size={20} />
+                        <FaUser size={20} />
                         <Link
                             href="/client/AllUsers"
                             className={
@@ -44,7 +45,7 @@ export default function SideMenu() {
                 )}
                 {user?.etat === 1 && user.role_id === 1 ? (
                     <li>
-                        <IoMdNotifications size={20} />
+                        <AiOutlineTransaction size={20} />
                         <Link
                             href="/client/Alltransactions"
                             className={
@@ -61,7 +62,7 @@ export default function SideMenu() {
                 )}
                 {user?.etat === 1 && user.role_id === 1 ? (
                     <li>
-                        <IoMdNotifications size={20} />
+                        <RiBankCardFill size={20} />
                         <Link
                             href="/client/AllAccounts"
                             className={
@@ -76,7 +77,25 @@ export default function SideMenu() {
                 ) : (
                     ""
                 )}
+                {user?.etat === 1 && user.role_id === 1 ? (
+                    <li>
+                        <IoStatsChartSharp size={20} />
+                        <Link
+                            href="/client/Statistiques"
+                            className={
+                                pathname === "/client/Statistiques"
+                                    ? "activeLink"
+                                    : ""
+                            }
+                        >
+                            Statistiques
+                        </Link>
+                    </li>
+                ) : (
+                    ""
+                )}
 
+                {/* partie user */}
                 {user?.etat === 1 && user.role_id === 2 && (
                     <>
                         <li>
@@ -100,7 +119,7 @@ export default function SideMenu() {
                                         : ""
                                 }
                             >
-                                Transactions
+                                Mes Transactions
                             </Link>
                         </li>
                         <li>
@@ -108,12 +127,12 @@ export default function SideMenu() {
                             <Link
                                 href="/client/Statistiques"
                                 className={
-                                    pathname === "/client/Statistiques"
+                                    pathname === "/client/MyStats"
                                         ? "activeLink"
                                         : ""
                                 }
                             >
-                                Statistiques
+                                Mes Statistiques
                             </Link>
                         </li>
                     </>

@@ -10,6 +10,9 @@ Cashlink est une application web de gestion financière construite avec Next.js 
 
 - **Backend**: Le backend de l'application est construit avec [Laravel](https://laravel.com/), un framework PHP pour le développement web. Il offre une syntaxe expressive et élégante et est conçu pour les développeurs qui ont besoin d'une structure simple et élégante pour créer des applications web robustes.
 
+- **Base de données**: L'application utilise [MySQL](https://www.mysql.com/) comme système de gestion de base de données. MySQL est un système de gestion de base de données relationnelle open source qui est largement utilisé pour le développement web.
+
+
 ## Fonctionnalités
 
 - Gestion des comptes utilisateurs par un compte Admin

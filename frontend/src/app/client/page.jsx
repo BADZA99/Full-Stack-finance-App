@@ -28,15 +28,23 @@ export default function page() {
         if (cardNumber && amount > 0) {
             try {
                 verifyCreditCard(cardNumber, amount).then((response) => {
-                    if (response) {
-                        toast.success("Card verified");
-                        // console.log(user?.id);
-                        increaseUserAmount(user?.id, amount);
-                         decreaseUserAmount(receiverInfos?.user_id, amount);
-                        setreceiveModalOpen(false);
-                    } else {
-                        toast.error("Invalid card number");
-                    }
+                   if (response) {
+                       toast.success("Card verified");
+                       fetchUserByCard(cardNumber).then((receiverInfos) => {
+                           console.log(receiverInfos);
+                           createTransaction(
+                               receiverInfos?.id,
+                               UserAccountInfos?.id,
+                               "depot",
+                               amount
+                           );
+                            increaseUserAmount(user?.id, amount);
+                           decreaseUserAmount(receiverInfos?.user_id, amount);
+                           setreceiveModalOpen(false);
+                       });
+                   } else {
+                       toast.error("Invalid card number");
+                   }
                 });
             } catch (error) {
                 console.log(error);
@@ -44,6 +52,10 @@ export default function page() {
             }
         }
     };
+
+    //    increaseUserAmount(user?.id, amount);
+    // decreaseUserAmount(receiverInfos?.user_id, amount);
+    // setreceiveModalOpen(false);
     // fonction qui retourne un user par sa carte bancaire
     const fetchUserByCard = async (cardNumber) => {
         try {
@@ -95,6 +107,8 @@ export default function page() {
     useLayoutEffect(() => {
         if (session) {
             setAccess(true);
+        }else if(user?.etat === 0){
+            setAccess(false);
         }
     }, [session]);
 
@@ -155,7 +169,6 @@ export default function page() {
         }
     };
 
-
     // FONCTION QUI VERIFIE LA CARTE BACAIRE
     const verifyCreditCard = async (cardNumber, montant) => {
         try {
@@ -186,9 +199,13 @@ export default function page() {
                 montant: amount,
             });
             console.log("create transaction response", response.data);
+
+            if (response.status === 200) {
+                toast.success("Transaction created successfully");
+            }
         } catch (e) {
-            console.log(e);
-            toast.error("Error during the transaction creation operation");
+            // console.log(e);
+            toast.error(`${e}`);
         }
     };
 
@@ -302,12 +319,12 @@ export default function page() {
                             </form>
                         </div>
                     )}
+                    <ToastContainer position="bottom-right" />
                 </StyledDashboard>
             )}
             {!access && (
                 <h1>
-                    Vous n'avez pas accès à cette page veuillez vous
-                    authentifier
+                   Acces Non autorise
                 </h1>
             )}
         </>

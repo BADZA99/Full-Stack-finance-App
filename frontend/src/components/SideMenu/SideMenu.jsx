@@ -20,124 +20,142 @@ export default function SideMenu() {
      const user = useUserStore((state) => state.user);
 
     return (
-        <StyledSideMenu>
-            <div className="userInfos">
-                <FaUser size={70} color="" />
-                <h3>{user?.prenom + " " + user?.nom}</h3>
-            </div>
-            <ul>
-                {user?.etat === 1 && user.role_id === 1 ? (
-                    <li>
-                        <FaUser size={20} />
-                        <Link
-                            href="/client/AllUsers"
-                            className={
-                                pathname === "/client/AllUsers"
-                                    ? "activeLink"
-                                    : ""
-                            }
-                        >
-                            Utilisateurs
-                        </Link>
-                    </li>
-                ) : (
-                    ""
-                )}
-                {user?.etat === 1 && user.role_id === 1 ? (
-                    <li>
-                        <AiOutlineTransaction size={20} />
-                        <Link
-                            href="/client/Alltransactions"
-                            className={
-                                pathname === "/client/Alltransactions"
-                                    ? "activeLink"
-                                    : ""
-                            }
-                        >
-                            transactions
-                        </Link>
-                    </li>
-                ) : (
-                    ""
-                )}
-                {user?.etat === 1 && user.role_id === 1 ? (
-                    <li>
-                        <RiBankCardFill size={20} />
-                        <Link
-                            href="/client/AllAccounts"
-                            className={
-                                pathname === "/client/AllAccounts"
-                                    ? "activeLink"
-                                    : ""
-                            }
-                        >
-                            Comptes
-                        </Link>
-                    </li>
-                ) : (
-                    ""
-                )}
-                {user?.etat === 1 && user.role_id === 1 ? (
-                    <li>
-                        <IoStatsChartSharp size={20} />
-                        <Link
-                            href="/client/Statistiques"
-                            className={
-                                pathname === "/client/Statistiques"
-                                    ? "activeLink"
-                                    : ""
-                            }
-                        >
-                            Statistiques
-                        </Link>
-                    </li>
-                ) : (
-                    ""
-                )}
+        <>
+            {user?.etat === 1 ? (
+                <StyledSideMenu>
+                    <div className="userInfos">
+                        <FaUser size={70} color="" />
+                        <h3>{user?.prenom + " " + user?.nom}</h3>
+                    </div>
+                    <ul>
+                        {user?.etat === 1 && user.role_id === 1 ? (
+                            <li>
+                                <FaUser size={20} />
+                                <Link
+                                    href="/client/AllUsers"
+                                    className={
+                                        pathname === "/client/AllUsers"
+                                            ? "activeLink"
+                                            : ""
+                                    }
+                                >
+                                    Utilisateurs
+                                </Link>
+                            </li>
+                        ) : (
+                            ""
+                        )}
+                        {user?.etat === 1 && user.role_id === 1 ? (
+                            <li>
+                                <AiOutlineTransaction size={20} />
+                                <Link
+                                    href="/client/Alltransactions"
+                                    className={
+                                        pathname === "/client/Alltransactions"
+                                            ? "activeLink"
+                                            : ""
+                                    }
+                                >
+                                    transactions
+                                </Link>
+                            </li>
+                        ) : (
+                            ""
+                        )}
+                        {user?.etat === 1 && user.role_id === 1 ? (
+                            <li>
+                                <RiBankCardFill size={20} />
+                                <Link
+                                    href="/client/AllAccounts"
+                                    className={
+                                        pathname === "/client/AllAccounts"
+                                            ? "activeLink"
+                                            : ""
+                                    }
+                                >
+                                    Comptes
+                                </Link>
+                            </li>
+                        ) : (
+                            ""
+                        )}
+                        {user?.etat === 1 && user.role_id === 1 ? (
+                            <li>
+                                <IoStatsChartSharp size={20} />
+                                <Link
+                                    href="/client/Statistiques"
+                                    className={
+                                        pathname === "/client/Statistiques"
+                                            ? "activeLink"
+                                            : ""
+                                    }
+                                >
+                                    Statistiques
+                                </Link>
+                            </li>
+                        ) : (
+                            ""
+                        )}
 
-                {/* partie user */}
-                {user?.etat === 1 && user.role_id === 2 && (
-                    <>
-                        <li>
-                            <MdSpaceDashboard size={20} />
-                            <Link
-                                href="/client"
-                                className={
-                                    pathname === "/client" ? "activeLink" : ""
-                                }
-                            >
-                                DashBoard
-                            </Link>
-                        </li>
-                        <li>
-                            <AiOutlineTransaction size={20} />
-                            <Link
-                                href="/client/Transactions"
-                                className={
-                                    pathname === "/client/Transactions"
-                                        ? "activeLink"
-                                        : ""
-                                }
-                            >
-                                Mes Transactions
-                            </Link>
-                        </li>
-                        <li>
-                            <IoStatsChartSharp size={20} />
-                            <Link
-                                href="/client/Statistiques"
-                                className={
-                                    pathname === "/client/MyStats"
-                                        ? "activeLink"
-                                        : ""
-                                }
-                            >
-                                Mes Statistiques
-                            </Link>
-                        </li>
-                    </>
-                )}
-            </ul>
-        </StyledSideMenu>
+                        {/* partie user */}
+                        {user?.etat === 1 && user.role_id === 2 && (
+                            <>
+                                <li>
+                                    <MdSpaceDashboard size={20} />
+                                    <Link
+                                        href="/client"
+                                        className={
+                                            pathname === "/client"
+                                                ? "activeLink"
+                                                : ""
+                                        }
+                                    >
+                                        DashBoard
+                                    </Link>
+                                </li>
+                                <li>
+                                    <AiOutlineTransaction size={20} />
+                                    <Link
+                                        href="/client/Transactions"
+                                        className={
+                                            pathname === "/client/Transactions"
+                                                ? "activeLink"
+                                                : ""
+                                        }
+                                    >
+                                        Transactions
+                                    </Link>
+                                </li>
+                                <li>
+                                    <IoStatsChartSharp size={20} />
+                                    <Link
+                                        href="/client/MyStats"
+                                        className={
+                                            pathname === "/client/MyStats"
+                                                ? "activeLink"
+                                                : ""
+                                        }
+                                    >
+                                        Statistiques
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                </StyledSideMenu>
+            ) : (
+                <p
+                    style={{
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%,-50%)",
+                        fontSize: "2rem",
+                        color: "red",
+                        zIndex: "1000",
+                    }}
+                >ACCES INTERDIT</p>
+            )}
+        </>
     );
 }

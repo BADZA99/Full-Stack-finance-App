@@ -4,7 +4,7 @@ import { StyledSignup } from './Signup.styled'
 import { useForm } from 'react-hook-form';
 import axios from "axios";
 import { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter as router } from 'next/router';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -29,15 +29,22 @@ export default function SignupPage() {
            
         if(response.status === 201){
             CreateAccount(data,response.data.id);
+
+            // rediriger vers /login cote client
+            router.push("/login");
+
+
+
         }
+
 
        
 
         //    router.push("/login");
        
     } catch (error) {
-           console.log(error);
-           toast.error('Error creating account!');
+        //    console.log(error);
+           toast.error(`${error}`);
        }
    };
 
@@ -83,6 +90,8 @@ console.log("infos compte: ",accountData)
             generateCard(responseAccount.data.id, responseAccount.data.pack);
             // envoyer mail
             SendEmail(idUser);
+            // toast
+            notify();
         })
         .catch((error) => {
             console.log(error);
@@ -100,6 +109,11 @@ const generateCard = async (accountId,typeCarte) => {
         .post(`/createCreditCard/`, cardData)
         .then((response) => {
             console.log(response);
+
+            if(response.status===200){
+                // toast
+                 toast.success("success generating card");
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -114,6 +128,10 @@ const SendEmail = async (id) => {
         .then((response) => {
             console.log(response);
             
+            if(response.status===200){
+                // toast
+                toast.success("check your email");
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -125,13 +143,13 @@ const SendEmail = async (id) => {
 
 const notify = () => toast.success("Signup successful Check your Email");
 
+// fonction qui vide les champs du formulaire
+
 
 
   return (
       <>
           <StyledSignup>
-              <ToastContainer position="bottom-right" />
-
               <h1>Rejoins la communaute CashLink</h1>
               <form ref={form} onSubmit={handleSubmit(onSubmit)}>
                   {/* nom,prenom,telephone,email,mot de passe avec leur label */}
@@ -293,6 +311,7 @@ const notify = () => toast.success("Signup successful Check your Email");
                   {errors.pack && <span>Le champ pack est requis</span>}
                   <button type="submit">Creer Compte</button>
               </form>
+              <ToastContainer position="bottom-right" />
           </StyledSignup>
       </>
   );

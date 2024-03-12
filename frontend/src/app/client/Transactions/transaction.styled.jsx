@@ -25,11 +25,17 @@ export const StyledTransactions = styled.div`
             height: 45%;
             padding: 1%;
             h3{
-                font-size: 2rem;
+                font-size: 1.4rem;
             }
             span{
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
+
+            // met un box shadow en fonction du theme
+            &:hover{
+                box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            }
+           
         }
     }
 `;

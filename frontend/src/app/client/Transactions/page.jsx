@@ -24,7 +24,8 @@ export default function page() {
                 getUserTransactions(response.data.id);
             }
         } catch (error) {
-            console.error(error);
+            // console.error(error);
+            toast.error(error);
         }
     };
     // fonction qui recuperes tous les transactions d'un user
@@ -61,10 +62,12 @@ export default function page() {
             ]);
         } catch (error) {
             console.error(error);
+            toast.error(error);
+
         }
     };
 
-    // console.log("user transactions", UserTransactions);
+    console.log("user transactions", UserTransactions);
     // console.log("users between transactions", UsersTransactions);
     // console.log("user account info", UserAccountInfos);
     //   type_transaction
@@ -74,16 +77,36 @@ export default function page() {
                 {UsersTransactions?.map((transaction, index) => {
                     return (
                         <li key={index}>
-                            {
-                                transaction?.receiver_user.id===user?.id ?"Vous avez recu de  ":"Vous avez envoye a "
-                            }
-                            <h3>{transaction?.sender_user.prenom +" "+transaction?.sender_user.nom}</h3>
-                            un{" "}
-                            {UserTransactions[index]?.type_transaction} de{" "}
-                            <h3>{UserTransactions[index]?.montant}Fcfa</h3>
+                            {transaction?.receiver_user.id === user?.id
+                                ? "Vous avez recu de  "
+                                : "Vous avez envoye a "}
+                            <h3>
+                                {transaction?.receiver_user.id === user?.id
+                                    ? transaction?.sender_user.prenom +
+                                      " " +
+                                      transaction?.sender_user.nom
+                                    : transaction?.receiver_user.prenom +
+                                      " " +
+                                      transaction?.receiver_user.nom}
+                            </h3>
+                            un {UserTransactions[index]?.type_transaction} de{" "}
+                            <h3
+                                style={{
+                                    color:
+                                        UserTransactions[index]
+                                            ?.sender_account_id ===
+                                        UserAccountInfos?.id
+                                            ? "red"
+                                            : "green",
+                                }}
+                            >
+                                {UserTransactions[index]?.montant}Fcfa
+                            </h3>
                             le{" "}
                             <span>
-                                {new Date(UserTransactions[index]?.created_at).toLocaleString('en-US', {timeZone: 'UTC'})}
+                                {new Date(
+                                    UserTransactions[index]?.created_at
+                                ).toLocaleString("en-US", { timeZone: "UTC" })}
                             </span>
                         </li>
                     );

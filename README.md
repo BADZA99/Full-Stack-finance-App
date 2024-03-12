@@ -35,7 +35,7 @@ Les contributions sont toujours les bienvenues.
 
 ## Développeur
 
-Ce projet a été développé par [Votre Nom](lien vers votre profil GitHub ou votre site web).
+Ce projet a été développé par PAPA BN.
 
 Pour toute question ou suggestion, n'hésitez pas à me contacter à [pndiaye999@gmail.com](mailto:votre.email@example.com).
 

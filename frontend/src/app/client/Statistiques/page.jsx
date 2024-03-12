@@ -129,7 +129,7 @@ export default function page() {
     // console.log("user transactions", UserTransactions);
     // console.log("users between transactions", UsersTransactions);
     // console.log("all accounts", AllAccounts);
-    console.log("all transactions", AllTransactions);
+    // console.log("all transactions", AllTransactions);
     // console.log("all users", AllUsers);
     // const labels = AllAccounts?.map((account) => account.account_type);
     // const data = AllAccounts?.map((account) => account.montant);
@@ -163,11 +163,10 @@ export default function page() {
         }
     }
 
-    console.log("accountsByType", accountsByType);
-    console.log("accountsByPack", accountsByPack);
+    // console.log("accountsByType", accountsByType);
+    // console.log("accountsByPack", accountsByPack);
     return (
         <StyledStats>
-            <h1>Statistiques</h1>
             <div className="diagContainer">
                 <div className="bar">
                     <Bar
@@ -244,6 +243,7 @@ export default function page() {
                             ],
                         }}
                     />
+                    <p>Diagramme des packs dans l'application</p>
                 </div>
                 <div className="Diagcirculaire">
                     <Doughnut
@@ -270,6 +270,10 @@ export default function page() {
                             ],
                         }}
                     />
+                    <p>
+                        Diagramme des types de compte dans
+                        l'application
+                    </p>
                 </div>
             </div>
             <div className="DiagBarre">
@@ -282,7 +286,7 @@ export default function page() {
                         ),
                         datasets: [
                             {
-                                label: "Transactions per Day",
+                                label: "Transactions Historic",
                                 data: AllTransactions?.map((transaction) =>
                                     Number(transaction.montant)
                                 ),
@@ -292,6 +296,9 @@ export default function page() {
                         ],
                     }}
                 />
+                <p>
+                    Courbe Historiques de tous transactions dans l'application
+                </p>
             </div>
             <ToastContainer position="bottom-right" />
         </StyledStats>

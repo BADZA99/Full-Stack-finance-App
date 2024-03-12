@@ -8,9 +8,9 @@ export const StyledCreditCard = styled.div`
 
     /* background-color: #292625; */
     /* background-image: linear-gradient(315deg, #29323c 0%, #485563 74%); */
-    border-radius: 5px;
+    border-radius: 7px;
     /* box shadow en fonction du theme */
-    box-shadow: 0 0 10px 10px ${({ theme }) => theme.background};
+    box-shadow: 0 0 10px 10px ${({ theme }) => theme.text};
 
     .cardHeader {
         display: flex;

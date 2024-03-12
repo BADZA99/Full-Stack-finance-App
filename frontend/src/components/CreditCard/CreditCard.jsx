@@ -15,7 +15,7 @@ export default function CreditCard({
                 <h1 className="logo">CashLink</h1>
                 <div className="puce">
                   <Image
-                    src={`/images/${type==="gold" ? "puceGold" : type==="premium" ?  "pucePremium": type==="standard" ? "puceBronze":"" }.png`}
+                    src={`/images/${type==="gold" ? "puceGold" : type==="premium" ?  "pucePremium": type==="standard" ? "puceBronze":type==="Nopack" ? "Nopack" : "" }.png`}
                     alt="puce"
                     width={60}
                     height={50}

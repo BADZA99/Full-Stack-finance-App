@@ -9,7 +9,7 @@ export const StyledMyStats = styled.div`
     color: ${({ theme }) => theme.text};
     width: 80%;
     height: 40vw;
-    border: 1px solid red;
+    // border: 1px solid red;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,9 +49,18 @@ export const StyledMyStats = styled.div`
         margin-top: 0.5%;
         width: 60%;
         height: 270px;
-        background: #f2f2f2;
+        // background: #f2f2f2;
         display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         font-weight: bold;
+        // border: 1px solid red;
+
+        p {
+            font-size: 20px;
+            color: ${({ theme }) => theme.text};
+            margin-top: 3%;
+        }
     }
 `;

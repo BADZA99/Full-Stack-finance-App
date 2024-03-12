@@ -9,49 +9,68 @@ export const StyledStats = styled.div`
     color: ${({ theme }) => theme.text};
     width: 80%;
     height: 40vw;
-    border: 1px solid red;
+    // border: 1px solid red;
     display: flex;
     flex-direction: column;
     align-items: center;
     // justify-content: center;
 
-    h1 {
-        text-align: center;
-        font-size: 30px;
-    }
 
     .diagContainer {
         margin-top: 2%;
-        width: 70%;
+        width: 95%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         flex-wrap: wrap;
         .bar {
-            width: 390px;
-            height: 260px;
-            background: #f2f2f2;
+            width: 400px;
+            height: 240px;
+            // background: #f2f2f2;
             display: flex;
+            flex-direction: column;
             align-items: center;
             font-weight: bold;
+
+            p {
+                font-size: 17px;
+                color: ${({ theme }) => theme.text};
+                margin-top: 3%;
+            }
         }
 
         .Diagcirculaire {
-            width: 390px;
-            height: 260px;
-            background: #f2f2f2;
+            width: 450px;
+            height: 240px;
+            // background: #f2f2f2;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+
+            p {
+                font-size: 17px;
+                color: ${({ theme }) => theme.text};
+                margin-top: 2%;
+            }
         }
     }
     .DiagBarre {
-        margin-top: 0.5%;
-        width: 60%;
+        margin-top: 1%;
+        width: 70%;
         height: 270px;
-        background: #f2f2f2;
+        // background: #f2f2f2;
         display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         align-items: center;
         font-weight: bold;
+        // border: 1px solid red;
+
+        p {
+            font-size: 20px;
+            color: ${({ theme }) => theme.text};
+            margin-top: 3%;
+        }
     }
 `;

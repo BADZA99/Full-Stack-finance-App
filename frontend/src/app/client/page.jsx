@@ -29,7 +29,6 @@ export default function page() {
             try {
                 verifyCreditCard(cardNumber, amount).then((response) => {
                    if (response) {
-                       toast.success("Card verified");
                        fetchUserByCard(cardNumber).then((receiverInfos) => {
                            console.log(receiverInfos);
                            createTransaction(
@@ -37,11 +36,12 @@ export default function page() {
                                UserAccountInfos?.id,
                                "depot",
                                amount
-                           );
-                            increaseUserAmount(user?.id, amount);
-                           decreaseUserAmount(receiverInfos?.user_id, amount);
-                           setreceiveModalOpen(false);
-                       });
+                               );
+                               increaseUserAmount(user?.id, amount);
+                               decreaseUserAmount(receiverInfos?.user_id, amount);
+                               setreceiveModalOpen(false);
+                            toast.success("Card verified and transaction created successfully");
+                            });
                    } else {
                        toast.error("Invalid card number");
                    }
@@ -80,18 +80,18 @@ export default function page() {
             try {
                 verifyCreditCard(cardNumber, amount).then((response) => {
                     if (response) {
-                        toast.success("Card verified");
                         fetchUserByCard(cardNumber).then((receiverInfos) => {
                             console.log(receiverInfos);
                             createTransaction(
-                                receiverInfos?.id,
                                 UserAccountInfos?.id,
+                                receiverInfos?.id,
                                 "depot",
                                 amount
                             );
                             increaseUserAmount(receiverInfos?.user_id, amount);
                             decreaseUserAmount(user?.id, amount);
                             setsendModalOpen(false);
+                            toast.success("Card verified and transaction created successfully");
                         });
                     } else {
                         toast.error("Invalid card number");
@@ -251,18 +251,23 @@ export default function page() {
                                         UserCreditCardInfos?.date_expiration
                                     }
                                     cvv={UserCreditCardInfos?.cvv}
-                                    titulaire={user?.nom + " " + user?.prenom}
+                                    titulaire={
+                                        user?.prenom + " " + user?.nom
+                                    }
                                 />
                             </div>
 
                             <div className="transBtns">
-                                <button
-                                    onClick={() => {
-                                        setsendModalOpen(!sendModalOpen);
-                                    }}
-                                >
-                                    Transfert de l'argent
-                                </button>
+                                {UserAccountInfos?.account_type !==
+                                    "epargne" && (
+                                    <button
+                                        onClick={() => {
+                                            setsendModalOpen(!sendModalOpen);
+                                        }}
+                                    >
+                                        Transfert de l'argent
+                                    </button>
+                                )}
                                 <button
                                     onClick={() => {
                                         setreceiveModalOpen(!receiveModalOpen);
@@ -322,11 +327,7 @@ export default function page() {
                     <ToastContainer position="bottom-right" />
                 </StyledDashboard>
             )}
-            {!access && (
-                <h1>
-                   Acces Non autorise
-                </h1>
-            )}
+            {!access && <h1>Acces Non autorise</h1>}
         </>
     );
 }

@@ -16,7 +16,7 @@ export const StyledDashboard = styled.div`
         display: flex;
         justify-content: space-between;
         margin: 10px;
-        border: 1px solid red;
+        // border: 1px solid red;
         height: 45%;
         padding: 1%;
 
@@ -41,7 +41,7 @@ export const StyledDashboard = styled.div`
         flex-direction: row;
         justify-content: space-between;
         margin: 20px;
-        border: 1px solid red;
+        // border: 1px solid red;
         height: 10%;
         width: 40%;
         button {

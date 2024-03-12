@@ -9,7 +9,7 @@ export const StyledAllAccounts = styled.div`
     color: ${({ theme }) => theme.text};
     width: 70%;
     height: 40vw;
-    border: 1px solid red;
+    // border: 1px solid red;
 
      h1 {
         text-align: center;

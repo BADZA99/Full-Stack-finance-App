@@ -50,7 +50,7 @@ export default function SignupPage() {
 
 // cree un nouveau compte
 const CreateAccount = async (infosUser,idUser)=>{
-    console.log("infos user: ",infosUser,"idUser: ",idUser);
+    // console.log("infos user: ",infosUser,"idUser: ",idUser);
 const accountData = {
     // Remplissez ici avec les informations du compte
     account_type: infosUser.compte,
@@ -81,7 +81,7 @@ const accountData = {
             : 0,
     user_id: idUser,
 };
-console.log("infos compte: ",accountData)
+// console.log("infos compte: ",accountData)
     await axios
         .post("/newAccount", accountData)
         .then((responseAccount) => {

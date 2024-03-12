@@ -21,7 +21,7 @@ export default function SideMenu() {
 
     return (
         <>
-            {user?.etat === 1 ? (
+            {user?.etat === 1 && (
                 <StyledSideMenu>
                     <div className="userInfos">
                         <FaUser size={70} color="" />
@@ -143,18 +143,22 @@ export default function SideMenu() {
                         )}
                     </ul>
                 </StyledSideMenu>
-            ) : (
+            )}
+
+            {user?.etat === 0 && (
                 <p
                     style={{
                         position: "absolute",
                         top: "50%",
                         left: "50%",
-                        transform: "translate(-50%,-50%)",
-                        fontSize: "2rem",
+                        transform: "translate(-50%,-40%)",
+                        fontSize: "3rem",
                         color: "red",
                         zIndex: "1000",
                     }}
-                >ACCES INTERDIT</p>
+                >
+                    ACCES REFUSEE 🚫!!
+                </p>
             )}
         </>
     );

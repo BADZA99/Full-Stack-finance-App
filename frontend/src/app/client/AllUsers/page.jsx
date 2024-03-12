@@ -89,7 +89,7 @@ const updateUserState = (id, newState) => {
                         <th>prenom</th>
                         <th>email</th>
                         <th>etat</th>
-                        <th>role_id</th>
+                        <th>role</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -102,7 +102,7 @@ const updateUserState = (id, newState) => {
                             <td>{user.prenom}</td>
                             <td>{user.email}</td>
                             <td>{user.etat}</td>
-                            <td>{user.role_id}</td>
+                            <td>{user.role_id ===2 ? "Client" :"Admin"}</td>
                             {/* bouton actions */}
                             <td>
                                 {user.etat === 0 && (

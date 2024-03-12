@@ -63,3 +63,5 @@ Route::get('/allTransactions', [TransactionsController::class, 'allTransactions'
 Route::get('/transaction/{id}', [TransactionsController::class, 'transactionById']);
 Route::get('/transactionByAccountId/{id}', [TransactionsController::class, 'transactionByAccountId']);
 Route::get('/usersByTransactionId/{id}', [TransactionsController::class, 'usersByTransactionId']);
+Route::get('/SendTransactionSuccessReceiverEmail/{id}', [TransactionsController::class, 'SendTransactionSuccessReceiverEmail']);
+Route::get('/SendTransactionSuccessSenderEmail/{id}', [TransactionsController::class, 'SendTransactionSuccessSenderEmail']);

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\account;
 use App\Models\transaction;
 use App\Models\User;
-
+use App\Notifications\TransactionSuccessSenderNotification;
+use App\Notifications\TransactionSuccessReceiverNotification;
 use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
@@ -55,6 +56,42 @@ class TransactionsController extends Controller
             $sender_user,
             'receiver_user' =>  $receiver_user
         ];
+    }
+
+    // fonction qui envoie un email au destinaire d'une transaction
+    public function SendTransactionSuccessReceiverEmail($id){
+        $transaction = transaction::find($id);
+        $sender_account = account::find($transaction->sender_account_id);
+        $receiver_account = account::find($transaction->receiver_account_id);
+        $sender_user = User::find($sender_account->user_id);
+        $receiver_user = User::find($receiver_account->user_id);
+        $data = [
+            'type' => $transaction->type_transaction,
+            'montant' => $transaction->montant,
+            'date' => $transaction->date_transaction,
+            'sender_Name' => $sender_user->prenom ,
+            'receiver_Name' => $receiver_user->prenom,
+        ];
+        $receiver_user->notify(new TransactionSuccessReceiverNotification($data));
+        return response()->json(['message' => 'email sent'], 200);
+    }
+
+    // fonction qui envoie un email au destinaire d'une transaction
+    public function SendTransactionSuccessSenderEmail($id){
+        $transaction = transaction::find($id);
+        $sender_account = account::find($transaction->sender_account_id);
+        $receiver_account = account::find($transaction->receiver_account_id);
+        $sender_user = User::find($sender_account->user_id);
+        $receiver_user = User::find($receiver_account->user_id);
+        $data = [
+            'type' => $transaction->type_transaction,
+            'montant' => $transaction->montant,
+            'date' => $transaction->date_transaction,
+            'sender_Name' => $sender_user->prenom ,
+            'receiver_Name' => $receiver_user->prenom,
+        ];
+        $sender_user->notify(new TransactionSuccessSenderNotification($data));
+        return response()->json(['message' => 'email sent'], 200);
     }
 
 

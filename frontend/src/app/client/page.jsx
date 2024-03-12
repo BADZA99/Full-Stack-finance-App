@@ -198,16 +198,51 @@ export default function page() {
                 type_transaction: type_transaction,
                 montant: amount,
             });
-            console.log("create transaction response", response.data);
+            // console.log("create transaction response", response.data);
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 toast.success("Transaction created successfully");
+                SendTransactionSuccessReceiverEmail(response.data.id);
+                SendTransactionSuccessSenderEmail(response.data.id);
+            }else{
+                toast.error("Error during the transaction creation");
             }
+
         } catch (e) {
-            // console.log(e);
-            toast.error(`${e}`);
+            console.log(e);
+            // toast.error(`${e}`);
         }
     };
+
+    // foncion qui envoie un email au destinataire de la transaction
+    const SendTransactionSuccessReceiverEmail = async (idTransaction) => {
+        try {
+            const response = await axios.get(`/SendTransactionSuccessReceiverEmail/${idTransaction}`);
+            // console.log("send email response", response.data);
+            if(response.status === 200){
+                toast.success("Email sent to reveiver successfully");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+    };
+
+    // fonction qui envoie un email a l'expediteur de la transaction
+    const SendTransactionSuccessSenderEmail = async (idTransaction) => {
+        try {
+            const response = await axios.get(`/SendTransactionSuccessSenderEmail/${idTransaction}`);
+            // console.log("send email response", response.data);
+            if(response.status === 200){
+                toast.success("Email sent to sender successfully");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+
+
 
     // console.log("session: ",session)
     // console.log("user: ",user)
@@ -294,7 +329,7 @@ export default function page() {
                             <form onSubmit={handleSendSubmit}>
                                 <input
                                     type="text"
-                                    placeholder="Email du destinataire"
+                                    placeholder="Carte bancaire du destinataire"
                                 />
                                 <input type="text" placeholder="Montant" />
                                 <button>Envoyer</button>

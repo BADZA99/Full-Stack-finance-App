@@ -13,26 +13,26 @@ export default function Page() {
                 Standard.
             </p>
 
-            <h2>Génération de carte bancaire</h2>
+            <h2>Génération de carte Cashlink</h2>
             <p>
-                💳 Après la création d'un compte, une carte bancaire est générée
+                💳 Après la création d'un compte, une carte bancaire cashlink est générée
                 pour vous.
             </p>
             <h2>Compte Gold</h2>
             <p>
-                💰 Le plafond est de 10 millions avec un tarif maximum de 12
+                💰 Le plafond est de 10 millions avec un tarif mensuel de 12
                 000 par mois. 
             </p>
 
             <h2>Compte Premium</h2>
             <p>
-                💳 Le plafond est de 5 millions avec un tarif maximum de 5 000
+                💳 Le plafond est de 5 millions avec un tarif mensuel de 5 000
                 par mois. 
             </p>
 
             <h2>Compte Standard</h2>
             <p>
-                💵 Le plafond est de 1 million avec un tarif maximum de 3 000
+                💵 Le plafond est de 1 million avec un tarif mensuel de 3 000
                 FCFA par mois. 
             </p>
         </StyledService>

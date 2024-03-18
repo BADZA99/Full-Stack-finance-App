@@ -198,13 +198,16 @@ export default function page() {
                 type_transaction: type_transaction,
                 montant: amount,
             });
-            // console.log("create transaction response", response.data);
 
+            if (sender_account_id === receiver_account_id){
+                toast.error("You can't send money to yourself");
+            }
+            
             if (response.status === 201) {
                 toast.success("Transaction created successfully");
                 SendTransactionSuccessReceiverEmail(response.data.id);
                 SendTransactionSuccessSenderEmail(response.data.id);
-            }else{
+            } else {
                 toast.error("Error during the transaction creation");
             }
 

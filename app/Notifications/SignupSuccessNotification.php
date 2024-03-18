@@ -24,11 +24,13 @@ class SignupSuccessNotification extends Notification
     ];
     public $user_name;
     public $user_rib;
-public function __construct($accountData, $user_name,$user_rib)
+    public $user_CreditCard_Number;
+public function __construct($accountData, $user_name,$user_rib,$user_CreditCard_Number)
     {
         $this->accountData = $accountData;
         $this->user_name = $user_name;
         $this->user_rib = $user_rib;
+        $this->user_CreditCard_Number = $user_CreditCard_Number;
     }
 
     /**
@@ -56,6 +58,7 @@ public function __construct($accountData, $user_name,$user_rib)
         ->line('Plafond : ' . $this->accountData['plafond'] . ' FCFA')
         ->line('Montant : ' . $this->accountData['montant'] . ' FCFA')
         ->line('Votre RIB : ' . $this->user_rib)
+        ->line('Numéro de carte Casslink : ' . $this->user_CreditCard_Number)
         ->line('Tarif mensuel : ' . $this->accountData['max_withdrawal'] . ' FCFA')
         ->line('Veuillez garder ces détails en sécurité. 🔐')
         ->action('🌐 Visitez notre site web', url('/'))

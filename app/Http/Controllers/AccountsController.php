@@ -56,8 +56,10 @@ class AccountsController extends Controller
         try {
             $user = User::find($id);
             $account = account::where('user_id', $id)->first();
+            // recuperer la carte associe a ce compte pour avoir le numero de carte par une seule requete
+            $credit_card = credit_card::where('account_id', $account->id)->first();
             if ($user) {
-                $user->notify(new SignupSuccessNotification($account, $user->nom, $user->rib));
+                $user->notify(new SignupSuccessNotification($account, $user->nom, $user->rib, $credit_card->numero_carte));
                 return response()->json(['message' => 'email sent'], 200);
             }
         } catch (\Exception $e) {

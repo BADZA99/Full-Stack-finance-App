@@ -31,7 +31,7 @@ export default function SignupPage() {
             CreateAccount(data,response.data.id);
 
             // rediriger vers /login cote client
-            router.push("/login");
+            // router.push("/login");
 
 
 
@@ -87,11 +87,16 @@ const accountData = {
         .then((responseAccount) => {
             console.log("reponse creation compte",responseAccount);
             // generer carte bancaire
-            generateCard(responseAccount.data.id, responseAccount.data.pack);
-            // envoyer mail
-            SendEmail(idUser);
-            // toast
-            notify();
+            generateCard(responseAccount.data.id, responseAccount.data.pack,idUser);
+            
+            // attendre 20s
+            setTimeout(() => {
+            } , 20000);
+            
+        
+
+         
+
         })
         .catch((error) => {
             console.log(error);
@@ -100,7 +105,7 @@ const accountData = {
 }
 
 // fonction qui genere la carte bancaire
-const generateCard = async (accountId,typeCarte) => {
+const generateCard = async (accountId, typeCarte, idUser) => {
     const cardData = {
         account_id: accountId,
         type_carte: typeCarte,
@@ -110,9 +115,11 @@ const generateCard = async (accountId,typeCarte) => {
         .then((response) => {
             console.log(response);
 
-            if(response.status===200){
+            if (response.status === 201) {
                 // toast
-                 toast.success("success generating card");
+                toast.success("success generating card");
+                SendEmail(idUser);
+                notify();
             }
         })
         .catch((error) => {
@@ -161,7 +168,7 @@ const notify = () => toast.success("Signup successful Check your Email");
                       {...register("nom", {
                           required: true,
                           maxLength: 20,
-                          minLength: 5,
+                          minLength: 2,
                       })}
                   />
                   {errors.nom && errors.nom.type === "required" && (
@@ -182,7 +189,7 @@ const notify = () => toast.success("Signup successful Check your Email");
                       {...register("prenom", {
                           required: true,
                           maxLength: 20,
-                          minLength: 5,
+                          minLength: 2,
                       })}
                   />
                   {errors.nom && errors.nom.type === "required" && (

@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 
 export const StyledCreditCard = styled.div`
     width: 45%;
-    height: 100%;
+    height: 80%;
     background: ${({ theme }) => theme.bgCreditCard};
 
     /* background-color: #292625; */

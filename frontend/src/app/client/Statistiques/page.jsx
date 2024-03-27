@@ -257,8 +257,8 @@ export default function page() {
                                         accountsByType?.epargne,
                                     ],
                                     backgroundColor: [
-                                        "rgb(255, 99, 132)",
-                                        "rgb(54, 162, 235)",
+                                        "rgb(233, 15, 62)",
+                                        "rgb(26, 156, 173)",
                                     ],
                                     hoverOffset: 4,
                                     font: {

@@ -79,7 +79,7 @@ export default function page() {
                         <li key={index}>
                             {transaction?.receiver_user.id === user?.id
                                 ? "Vous avez recu de  "
-                                : "Vous avez effectue "}
+                                : "Vous avez envoyer "}
                             <h3>
                                 {transaction?.receiver_user.id === user?.id
                                     ? transaction?.sender_user.prenom +

@@ -51,7 +51,7 @@ export default function page() {
                           <td>{account.user_id}</td>
                           <td>{account.account_type}</td>
                           <td>{account.pack}</td>
-                          <td>{account.plafond===0 ? "Infini" :  account.plafond}</td>
+                          <td>{account.plafond}</td>
                           <td>{account.montant} Fcfa</td>
                           <td>{account.max_withdrawal} Fcfa</td>
                           <td>

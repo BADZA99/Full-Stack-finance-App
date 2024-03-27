@@ -30,6 +30,7 @@ export default function CreditCard({
                       : type === "premium"
                       ? "#C0C0C0"
                       : "#CD7F32",
+                      fontWeight: "bold",
                 }}
               >{type}</h2>
             </div>

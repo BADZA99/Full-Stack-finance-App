@@ -15,36 +15,64 @@ export default function page() {
     const [receiveModalOpen, setreceiveModalOpen] = useState(false);
     const { session, activeSession } = useUserStore();
     const { user, setUser } = useUserStore();
-    const [cardNumber, setCardNumber] = useState("");
+    // const [cardNumber, setCardNumber] = useState("");
+    const [userEmail, setuserEmail] = useState("");
     const [amount, setAmount] = useState("");
     const [senderInfos, setSenderInfos] = useState();
 
     const handleReceiveSubmit = (event) => {
         event.preventDefault();
-        setCardNumber(event.target.elements[0].value);
+        // setCardNumber(event.target.elements[0].value);
+        setuserEmail(event.target.elements[0].value);
         setAmount(event.target.elements[1].value);
         // console.log(amount, cardNumber);
 
-        if (cardNumber && amount > 0) {
+        if (amount > 0) {
             try {
-                verifyCreditCard(cardNumber, amount).then((response) => {
-                   if (response) {
-                       fetchUserByCard(cardNumber).then((receiverInfos) => {
-                           console.log(receiverInfos);
-                           createTransaction(
-                               receiverInfos?.id,
-                               UserAccountInfos?.id,
-                               "depot",
-                               amount
-                               );
-                               increaseUserAmount(user?.id, amount);
-                               decreaseUserAmount(receiverInfos?.user_id, amount);
-                               setreceiveModalOpen(false);
-                            toast.success("Card verified and transaction created successfully");
+                verifyEmail(userEmail).then((resverifyEmail) => {
+                    getCreditCardByEmail(userEmail).then(
+                        (responsegetCreditCardByEmail) => {
+                            // console.log(responsegetCreditCardByEmail);
+                            verifyCreditCard(
+                                responsegetCreditCardByEmail.numero_carte,
+                                amount
+                            ).then((responseverifyCreditCard) => {
+                                if (responseverifyCreditCard) {
+                                    fetchUserByCard(
+                                        responsegetCreditCardByEmail.numero_carte
+                                    ).then((receiverInfos) => {
+                                        console.log(
+                                            "reciever infos",
+                                            receiverInfos
+                                        );
+                                        createTransaction(
+                                            receiverInfos?.id,
+                                            UserAccountInfos?.id,
+                                            "depot",
+                                            amount
+                                        );
+                                        if (
+                                            receiverInfos?.id ===
+                                            UserAccountInfos?.id
+                                        ) {
+                                            return;
+                                        }
+                                        increaseUserAmount(
+                                            receiverInfos?.user_id,
+                                            amount
+                                        );
+                                        decreaseUserAmount(user?.id, amount);
+                                        setsendModalOpen(false);
+                                        toast.success(
+                                            "Card verified and transaction created successfully"
+                                        );
+                                    });
+                                } else {
+                                    toast.error("Invalid card number");
+                                }
                             });
-                   } else {
-                       toast.error("Invalid card number");
-                   }
+                        }
+                    );
                 });
             } catch (error) {
                 console.log(error);
@@ -72,31 +100,53 @@ export default function page() {
 
     const handleSendSubmit = (event) => {
         event.preventDefault();
-        setCardNumber(event.target.elements[0].value);
+        // setCardNumber(event.target.elements[0].value);
+        setuserEmail(event.target.elements[0].value);
         setAmount(event.target.elements[1].value);
-        console.log(amount, cardNumber);
+        // console.log(amount, cardNumber);
 
-        if (cardNumber && amount > 0) {
+        if (amount > 0) {
             try {
-                verifyCreditCard(cardNumber, amount).then((response) => {
-                    if (response) {
-                        fetchUserByCard(cardNumber).then((receiverInfos) => {
-                            console.log(receiverInfos);
-                            createTransaction(
-                                UserAccountInfos?.id,
-                                receiverInfos?.id,
-                                "depot",
-                                amount
-                            );
-                            increaseUserAmount(receiverInfos?.user_id, amount);
-                            decreaseUserAmount(user?.id, amount);
-                            setsendModalOpen(false);
-                            toast.success("Card verified and transaction created successfully");
+                verifyEmail(userEmail).then((resverifyEmail) => {
+
+                    getCreditCardByEmail(userEmail).then((responsegetCreditCardByEmail) => {
+                        // console.log(responsegetCreditCardByEmail);
+                        verifyCreditCard(
+                            responsegetCreditCardByEmail.numero_carte,
+                            amount
+                        ).then((responseverifyCreditCard) => {
+                            if (responseverifyCreditCard) {
+                                fetchUserByCard(
+                                    responsegetCreditCardByEmail.numero_carte
+                                ).then((receiverInfos) => {
+                                    console.log("reciever infos", receiverInfos);
+                                    createTransaction(
+                                        UserAccountInfos?.id,
+                                        receiverInfos?.id,
+                                        "depot",
+                                        amount
+                                    );
+                                    increaseUserAmount(
+                                        receiverInfos?.user_id,
+                                        amount
+                                    );
+                                    decreaseUserAmount(
+                                        user?.id,
+                                        amount
+                                    );
+                                    setsendModalOpen(false);
+                                    toast.success(
+                                        "Card verified and transaction created successfully"
+                                    );
+                                });
+                            } else {
+                                toast.error("Invalid card number");
+                            }
                         });
-                    } else {
-                        toast.error("Invalid card number");
-                    }
+                    });
+
                 });
+
             } catch (error) {
                 console.log(error);
                 toast.error("Error during the verification operation");
@@ -107,7 +157,7 @@ export default function page() {
     useLayoutEffect(() => {
         if (session) {
             setAccess(true);
-        }else if(user?.etat === 0){
+        } else if (user?.etat === 0) {
             setAccess(false);
         }
     }, [session]);
@@ -192,24 +242,29 @@ export default function page() {
         amount
     ) => {
         try {
-            const response = await axios.post(`/newTransaction`, {
-                sender_account_id: sender_account_id,
-                receiver_account_id: receiver_account_id,
-                type_transaction: type_transaction,
-                montant: amount,
-            });
-
-            if (sender_account_id === receiver_account_id){
+            if (sender_account_id === receiver_account_id) {
                 toast.error("You can't send money to yourself");
-            }
-            
-            if (response.status === 201) {
-                toast.success("Transaction created successfully");
-                SendTransactionSuccessReceiverEmail(response.data.id);
-                SendTransactionSuccessSenderEmail(response.data.id);
+                return;
             } else {
-                toast.error("Error during the transaction creation");
+                const response = await axios.post(`/newTransaction`, {
+                    sender_account_id: sender_account_id,
+                    receiver_account_id: receiver_account_id,
+                    type_transaction: type_transaction,
+                    montant: amount,
+                });
+                if (response.status === 201) {
+                    if (sender_account_id === receiver_account_id){
+                        toast.warning("Transaction impossible");
+                    }else{
+                        toast.success("Transaction created successfully");
+                    }
+                    SendTransactionSuccessReceiverEmail(response.data.id);
+                    SendTransactionSuccessSenderEmail(response.data.id);
+                } else {
+                    toast.error("Error during the transaction creation");
+                }
             }
+
 
         } catch (e) {
             console.log(e);
@@ -222,7 +277,7 @@ export default function page() {
         try {
             const response = await axios.get(`/SendTransactionSuccessReceiverEmail/${idTransaction}`);
             // console.log("send email response", response.data);
-            if(response.status === 200){
+            if (response.status === 200) {
                 toast.success("Email sent to reveiver successfully");
             }
         } catch (e) {
@@ -236,11 +291,50 @@ export default function page() {
         try {
             const response = await axios.get(`/SendTransactionSuccessSenderEmail/${idTransaction}`);
             // console.log("send email response", response.data);
-            if(response.status === 200){
+            if (response.status === 200) {
                 toast.success("Email sent to sender successfully");
             }
         } catch (e) {
             console.log(e);
+        }
+    };
+
+    // foction qui verifie l'email 
+    const verifyEmail = async (email) => {
+        try {
+            const response = await axios.post(`/VerifierEmail`, {
+                email: email,
+            });
+            // console.log("verify email response", response.data);
+            // toast
+            if (response.status === 200) {
+                toast.success("Email verified successfully");
+            } else {
+                toast.error("Email not verified");
+            }
+            return response.data;
+        } catch (e) {
+            console.log(e);
+            toast.error("Error during the email verification operation");
+        }
+    };
+
+    // onction qui retourne la carte d'un user par son email
+    const getCreditCardByEmail = async (email) => {
+        try {
+            const response = await axios.post(`/getCreditCardByEmail`, {
+                email: email,
+            });
+            console.log("card by mail response", response.data);
+            // toast
+            if (response.status === 200) {
+                toast.success("Card by mail verified successfully");
+            }
+
+            return response.data;
+        } catch (e) {
+            console.log(e);
+            toast.error("Error during the user by mail operation");
         }
     };
 
@@ -289,23 +383,21 @@ export default function page() {
                                         UserCreditCardInfos?.date_expiration
                                     }
                                     cvv={UserCreditCardInfos?.cvv}
-                                    titulaire={
-                                        user?.prenom + " " + user?.nom
-                                    }
+                                    titulaire={user?.prenom + " " + user?.nom}
                                 />
                             </div>
 
                             <div className="transBtns">
                                 {UserAccountInfos?.account_type !==
                                     "epargne" && (
-                                    <button
-                                        onClick={() => {
-                                            setsendModalOpen(!sendModalOpen);
-                                        }}
-                                    >
-                                        Transfert de l'argent
-                                    </button>
-                                )}
+                                        <button
+                                            onClick={() => {
+                                                setsendModalOpen(!sendModalOpen);
+                                            }}
+                                        >
+                                            Transfert de l'argent
+                                        </button>
+                                    )}
                                 <button
                                     onClick={() => {
                                         setreceiveModalOpen(!receiveModalOpen);
@@ -331,8 +423,8 @@ export default function page() {
                             </h2>
                             <form onSubmit={handleSendSubmit}>
                                 <input
-                                    type="text"
-                                    placeholder="Carte bancaire du destinataire"
+                                    type="email"
+                                    placeholder="Email destinataire"
                                 />
                                 <input type="text" placeholder="Montant" />
                                 <button>Envoyer</button>
@@ -354,15 +446,15 @@ export default function page() {
                             </h2>
                             <form onSubmit={handleReceiveSubmit}>
                                 <input
-                                    type="text"
-                                    placeholder="N° carte bancaire"
+                                    type="email"
+                                    placeholder="Email destinataire"
                                 />
                                 <input type="text" placeholder="Montant" />
-                                <button type="submit">Recevoir</button>
+                                <button type="submit">Recharger</button>
                             </form>
                         </div>
                     )}
-                    <ToastContainer position="bottom-right" />
+                    <ToastContainer position="bottom-right" autoClose={2000} />
                 </StyledDashboard>
             )}
             {!access && <h1>Acces Non autorise</h1>}

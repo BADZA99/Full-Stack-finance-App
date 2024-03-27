@@ -35,6 +35,8 @@ Route::get('/allUsers', [UserController::class, 'allUsers']);
 Route::get('/user/{id}', [UserController::class, 'userById']);
 Route::put('/desactivateUser/{id}', [UserController::class, 'desactivateUser']);
 Route::put('/reactivateUser/{id}', [UserController::class, 'reactivateUser']);
+Route::post('/VerifierEmail', [AccountsController::class, 'VerifierEmail']);
+
 
 
 
@@ -48,6 +50,9 @@ Route::post('/DiminuerSolde', [AccountsController::class, 'DiminuerSolde']);
 Route::get('/sendEmail/{id}', [AccountsController::class, 'SendEmail']);
 Route::post('/VerifierCarte', [AccountsController::class, 'VerifierCarte']);
 Route::post('/AccountByCreditCard', [AccountsController::class, 'getAccountByCreditCard']);
+Route::post('/getCreditCardByEmail', [AccountsController::class, 'getCreditCardByEmail']);
+
+
 
 
 // createCreditCard

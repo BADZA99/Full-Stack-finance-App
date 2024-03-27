@@ -70,7 +70,7 @@ const accountData = {
                 : infosUser.pack === "premium"
                 ? 5000
                 : 1000
-            : 0,
+            : 100000000,
     max_withdrawal:
         infosUser.compte === "courant"
             ? infosUser.pack === "gold"

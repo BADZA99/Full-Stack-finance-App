@@ -8,7 +8,7 @@ export const StyledAllTransaction = styled.div`
     font-family: "Inter", sans-serif;
     color: ${({ theme }) => theme.text};
     width: 70%;
-    height: 40vw;
+    height: 50vw;
     // border: 1px solid red;
 
 
@@ -49,4 +49,7 @@ export const StyledAllTransaction = styled.div`
             margin: 0 5px;
             cursor: pointer;
         }
+
+    }
+
 `;

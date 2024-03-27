@@ -6,8 +6,9 @@ export const StyledLayout = styled.div`
     color: ${({ theme }) => theme.text};
     position: relative;
     margin-top: 50px;
-    height: 100vh;
+    height: 140vh;
     min-height: 100vh;
+    max-height:auto;
     width: 100vw;
     /* display: flex;
     align-items: center;

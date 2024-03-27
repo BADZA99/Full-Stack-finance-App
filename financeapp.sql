@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 12 mars 2024 à 20:47
+-- Généré le : mer. 27 mars 2024 à 16:31
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.1.17
 
@@ -46,13 +46,15 @@ CREATE TABLE `accounts` (
 INSERT INTO `accounts` (`id`, `user_id`, `account_type`, `pack`, `plafond`, `montant`, `max_withdrawal`, `created_at`, `updated_at`) VALUES
 (2, 3, 'courant', 'Nopack', 0, 20000.00, 5000.00, '2024-02-23 02:02:10', '2024-02-23 02:02:10'),
 (40, 92, 'courant', 'gold', 10000000, 7430.00, 12000.00, '2024-03-05 21:43:32', '2024-03-12 16:06:53'),
-(41, 93, 'courant', 'gold', 10000000, 4519.00, 12000.00, '2024-03-05 22:47:35', '2024-03-12 19:19:26'),
-(42, 94, 'courant', 'standard', 1000000, 152500.00, 3000.00, '2024-03-06 01:01:35', '2024-03-12 17:57:03'),
+(41, 93, 'courant', 'gold', 10000000, 24119.00, 12000.00, '2024-03-05 22:47:35', '2024-03-27 14:11:32'),
+(42, 94, 'courant', 'standard', 1000000, 132600.00, 3000.00, '2024-03-06 01:01:35', '2024-03-27 14:11:33'),
 (43, 96, 'courant', 'premium', 5000000, 5000.00, 5000.00, '2024-03-12 00:16:10', '2024-03-12 00:16:10'),
 (44, 97, 'courant', 'premium', 5000000, 254170.00, 5000.00, '2024-03-12 00:22:51', '2024-03-12 17:57:03'),
 (45, 98, 'courant', 'premium', 5000000, 4488400.00, 5000.00, '2024-03-12 00:27:49', '2024-03-12 18:39:47'),
-(46, 99, 'epargne', 'Nopack', 0, 0.00, 0.00, '2024-03-12 15:16:32', '2024-03-12 15:16:32'),
-(47, 100, 'courant', 'premium', 5000000, 130481.00, 5000.00, '2024-03-12 18:06:53', '2024-03-12 19:19:26');
+(46, 99, 'epargne', 'Nopack', 100000000, 0.00, 0.00, '2024-03-12 15:16:32', '2024-03-12 15:16:32'),
+(47, 100, 'courant', 'premium', 5000000, 130481.00, 5000.00, '2024-03-12 18:06:53', '2024-03-12 19:19:26'),
+(66, 122, 'epargne', 'Nopack', 100000000, 1430000.00, 0.00, '2024-03-27 15:07:35', '2024-03-27 15:27:41'),
+(67, 123, 'epargne', 'Nopack', 100000000, 30000.00, 0.00, '2024-03-27 15:09:16', '2024-03-27 15:27:41');
 
 -- --------------------------------------------------------
 
@@ -84,7 +86,9 @@ INSERT INTO `credit_cards` (`id`, `account_id`, `numero_carte`, `date_expiration
 (7, 44, '9233722100596479', '2029-03-12', 'premium', '145', '2024-03-12 00:22:54', '2024-03-12 00:22:54'),
 (8, 45, '3575553809840531', '2029-03-12', 'premium', '181', '2024-03-12 00:27:52', '2024-03-12 00:27:52'),
 (9, 46, '1850963153152086', '2029-03-12', 'Nopack', '519', '2024-03-12 15:16:37', '2024-03-12 15:16:37'),
-(10, 47, '4274787563491419', '2029-03-12', 'premium', '153', '2024-03-12 18:06:57', '2024-03-12 18:06:57');
+(10, 47, '4274787563491419', '2029-03-12', 'premium', '153', '2024-03-12 18:06:57', '2024-03-12 18:06:57'),
+(34, 66, '1438737468614799', '2029-03-27', 'Nopack', '915', '2024-03-27 15:07:36', '2024-03-27 15:07:36'),
+(35, 67, '9354365772866832', '2029-03-27', 'Nopack', '146', '2024-03-27 15:09:17', '2024-03-27 15:09:17');
 
 -- --------------------------------------------------------
 
@@ -233,7 +237,34 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 (74, 'App\\Models\\User', 100, 'token', 'd2728cedde44d2eb66cdee487735b02e7576d2f276798d0cd41631a5306ecc73', '[\"*\"]', '2024-03-12 18:52:32', NULL, '2024-03-12 18:08:25', '2024-03-12 18:52:32'),
 (75, 'App\\Models\\User', 93, 'token', '1465e1c3036ea503775abff04b6cf3f839222ee34f7d9a8f18d3f5f2a3e1f2d1', '[\"*\"]', '2024-03-12 19:23:19', NULL, '2024-03-12 18:54:41', '2024-03-12 19:23:19'),
 (76, 'App\\Models\\User', 100, 'token', '70d461acea7f0bd1aaa7682e5d89ada75fc57b9221755f37473f0c0fb2cb7ffe', '[\"*\"]', '2024-03-12 19:23:58', NULL, '2024-03-12 19:23:32', '2024-03-12 19:23:58'),
-(77, 'App\\Models\\User', 1, 'token', '2df6a2a1e1969f97eb68af162f879380c1e56d61c07beabe07f579b7c7f5306e', '[\"*\"]', '2024-03-12 19:24:09', NULL, '2024-03-12 19:24:09', '2024-03-12 19:24:09');
+(77, 'App\\Models\\User', 1, 'token', '2df6a2a1e1969f97eb68af162f879380c1e56d61c07beabe07f579b7c7f5306e', '[\"*\"]', '2024-03-12 19:48:41', NULL, '2024-03-12 19:24:09', '2024-03-12 19:48:41'),
+(78, 'App\\Models\\User', 100, 'token', '10bf1347e28066a5bd50a48b7960ca31c649a1e33b1a9e342db4a468bfb6e204', '[\"*\"]', '2024-03-12 19:49:13', NULL, '2024-03-12 19:48:52', '2024-03-12 19:49:13'),
+(79, 'App\\Models\\User', 1, 'token', '6db9ceb5cf86eca5ad674002fc59a7fece384dccfa45c4ddb97ce5becfc28d88', '[\"*\"]', '2024-03-12 19:49:39', NULL, '2024-03-12 19:49:23', '2024-03-12 19:49:39'),
+(80, 'App\\Models\\User', 100, 'token', 'dc12afaf183a541f6f77f0f8e11d5c9a759b384e2ff9122c2db0fccffd2b4119', '[\"*\"]', '2024-03-12 19:50:10', NULL, '2024-03-12 19:49:47', '2024-03-12 19:50:10'),
+(81, 'App\\Models\\User', 1, 'token', '3b52de5f97a6bc63e237479c76a0866ca89eac42e7f20be2f63f9486a111423c', '[\"*\"]', '2024-03-12 19:50:18', NULL, '2024-03-12 19:50:18', '2024-03-12 19:50:18'),
+(82, 'App\\Models\\User', 117, 'token', 'f0e7fba7f9e038f9a4103507a926887a6de0529360d83ec378b25a801dc67776', '[\"*\"]', '2024-03-18 02:10:59', NULL, '2024-03-18 02:05:21', '2024-03-18 02:10:59'),
+(83, 'App\\Models\\User', 116, 'token', 'fa6d8200847860f6f63c5193a7b6a351e09ef54a308939ef4a8fde0d6068e25e', '[\"*\"]', '2024-03-18 02:11:53', NULL, '2024-03-18 02:11:13', '2024-03-18 02:11:53'),
+(84, 'App\\Models\\User', 1, 'token', '524eeb2f152719a7cda01f7c6a52018fd39150337775d59af44ec669b45da069', '[\"*\"]', '2024-03-18 02:13:50', NULL, '2024-03-18 02:12:14', '2024-03-18 02:13:50'),
+(85, 'App\\Models\\User', 1, 'token', '50600138e4296e6b344da298d5f06e5d4da3ca52d632c46bd5c762b7fefd4591', '[\"*\"]', '2024-03-18 03:06:56', NULL, '2024-03-18 03:04:36', '2024-03-18 03:06:56'),
+(86, 'App\\Models\\User', 118, 'token', '5945e34f8a90b3f5596d3db2aa12530d2198354e04e219cc9f1f45f1964d25a0', '[\"*\"]', '2024-03-18 03:15:26', NULL, '2024-03-18 03:10:28', '2024-03-18 03:15:26'),
+(87, 'App\\Models\\User', 119, 'token', '53a5a4408a459c30da0d1aef731e47e12280dedd3e9c959e3765f4afa9bcd4f9', '[\"*\"]', '2024-03-18 03:17:59', NULL, '2024-03-18 03:15:42', '2024-03-18 03:17:59'),
+(88, 'App\\Models\\User', 118, 'token', '4ef8517d578a031800b538ff1c8f3b02ba4de52c1afb8a26453eb60a07f78b62', '[\"*\"]', '2024-03-18 03:18:36', NULL, '2024-03-18 03:18:13', '2024-03-18 03:18:36'),
+(89, 'App\\Models\\User', 1, 'token', '0fde8df2ba75fb0a94f1b1db7531d704d3aedbdcc757191150dd4e7199931889', '[\"*\"]', '2024-03-18 03:20:30', NULL, '2024-03-18 03:18:44', '2024-03-18 03:20:30'),
+(90, 'App\\Models\\User', 93, 'token', 'bc823c055b510601eeed9788da574ced0cb93983c54a19dc616e308e8e0753a0', '[\"*\"]', '2024-03-18 03:20:50', NULL, '2024-03-18 03:20:38', '2024-03-18 03:20:50'),
+(91, 'App\\Models\\User', 1, 'token', '9d9606aee3b68aa2f24ac89ee44f3c38d9e74f88f2d3ded2c7905818fbb8eadc', '[\"*\"]', '2024-03-18 03:21:12', NULL, '2024-03-18 03:20:57', '2024-03-18 03:21:12'),
+(92, 'App\\Models\\User', 93, 'token', 'e56c81517b085ea8ced1bbf60096cb7497aa167402a05dde2442eed59412e469', '[\"*\"]', '2024-03-18 03:21:42', NULL, '2024-03-18 03:21:19', '2024-03-18 03:21:42'),
+(93, 'App\\Models\\User', 1, 'token', 'ad3716e63c888db0d2fe83bf8546b3eaaebaca8021daa57c264a1516f0d9ba5e', '[\"*\"]', '2024-03-18 03:22:02', NULL, '2024-03-18 03:21:49', '2024-03-18 03:22:02'),
+(94, 'App\\Models\\User', 93, 'token', '362fb4edfbb550c00ffd0f5e28da19e07dc44b58cb6c714cb0e60ba9ed23d412', '[\"*\"]', '2024-03-18 03:22:13', NULL, '2024-03-18 03:22:12', '2024-03-18 03:22:13'),
+(95, 'App\\Models\\User', 93, 'token', '79c1d7c4e78de42f5219c44cede8d86d53395dde25c1fbd9d7bd4fe103d20417', '[\"*\"]', '2024-03-27 12:57:40', NULL, '2024-03-27 12:57:01', '2024-03-27 12:57:40'),
+(96, 'App\\Models\\User', 1, 'token', '73dd39f6ebef30f6c7a6d24b78dd4b80eb1b5631a2005e0282c6aec1c655df2d', '[\"*\"]', '2024-03-27 13:06:53', NULL, '2024-03-27 12:57:52', '2024-03-27 13:06:53'),
+(97, 'App\\Models\\User', 93, 'token', '8b9fbe333efdc1ff5843d255e9851883030a3d555b47811a1980115af6e5dd5f', '[\"*\"]', '2024-03-27 13:57:09', NULL, '2024-03-27 13:07:06', '2024-03-27 13:57:09'),
+(98, 'App\\Models\\User', 94, 'token', '8356ce492746ad7a12a2bc7520f9717e9a87a321b97cc481b94cbc94ce936316', '[\"*\"]', '2024-03-27 15:00:53', NULL, '2024-03-27 13:57:42', '2024-03-27 15:00:53'),
+(99, 'App\\Models\\User', 1, 'token', 'fe2b53f537c91742e35cf8cf18d739b1400e3df10948e442902b639e355f9d50', '[\"*\"]', '2024-03-27 15:18:54', NULL, '2024-03-27 15:09:52', '2024-03-27 15:18:54'),
+(100, 'App\\Models\\User', 123, 'token', 'fec7f14195efd2eaa0593b19af3fc05a5eb4c0cabfa1b12538f5f7f7c766abc1', '[\"*\"]', '2024-03-27 15:28:14', NULL, '2024-03-27 15:19:09', '2024-03-27 15:28:14'),
+(101, 'App\\Models\\User', 122, 'token', '39296fad423907b4f2c3b3ebc393ad1e8ef0bfefaabb0e7dd62e574d96fab13b', '[\"*\"]', '2024-03-27 15:29:40', NULL, '2024-03-27 15:28:21', '2024-03-27 15:29:40'),
+(102, 'App\\Models\\User', 1, 'token', 'cc66600773fb2d675dca271cfad7054eb1dc12a1ddf1403ea2b82464846443d3', '[\"*\"]', '2024-03-27 15:31:02', NULL, '2024-03-27 15:29:48', '2024-03-27 15:31:02'),
+(103, 'App\\Models\\User', 122, 'token', '20473f1df0db1a8340220c9fb1b1c21ae9fa1938b11f5fe3a924444ef34ff0af', '[\"*\"]', '2024-03-27 15:31:22', NULL, '2024-03-27 15:31:09', '2024-03-27 15:31:22'),
+(104, 'App\\Models\\User', 123, 'token', 'db1788793f94f463336a77e3c572c46af8c420d41aa8f5121d5e7376e208e8c7', '[\"*\"]', '2024-03-27 15:31:40', NULL, '2024-03-27 15:31:29', '2024-03-27 15:31:40');
 
 -- --------------------------------------------------------
 
@@ -294,7 +325,11 @@ INSERT INTO `transactions` (`id`, `sender_account_id`, `receiver_account_id`, `m
 (15, 41, 47, 2340.00, 'depot', '2024-03-12 00:00:00', '2024-03-12 19:13:27', '2024-03-12 19:13:27'),
 (16, 44, 45, 7000.00, 'depot', '2024-03-12 00:00:00', '2024-03-12 19:14:25', '2024-03-12 19:14:25'),
 (17, 41, 47, 1876.00, 'depot', '2024-03-12 00:00:00', '2024-03-12 19:15:24', '2024-03-12 19:15:24'),
-(18, 41, 47, 1265.00, 'depot', '2024-03-12 00:00:00', '2024-03-12 19:19:25', '2024-03-12 19:19:25');
+(26, 41, 42, 100.00, 'depot', '2024-03-27 00:00:00', '2024-03-27 13:53:34', '2024-03-27 13:53:34'),
+(30, 42, 41, 10000.00, 'depot', '2024-03-27 00:00:00', '2024-03-27 14:09:56', '2024-03-27 14:09:56'),
+(31, 41, 42, 10000.00, 'depot', '2024-03-27 00:00:00', '2024-03-27 14:11:32', '2024-03-27 14:11:32'),
+(32, 66, 67, 100000.00, 'depot', '2024-03-27 00:00:00', '2024-03-27 15:27:31', '2024-03-27 15:27:31'),
+(33, 66, 67, 100000.00, 'depot', '2024-03-27 00:00:00', '2024-03-27 15:27:41', '2024-03-27 15:27:41');
 
 -- --------------------------------------------------------
 
@@ -325,14 +360,16 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `rib`, `nom`, `prenom`, `cin`, `telephone`, `email`, `etat`, `password`, `remember_token`, `created_at`, `updated_at`, `role_id`) VALUES
 (1, 'esMNh9ZR12', 'Doe', 'John', '123456789', '775432067', 'john@doe.com', 1, '$2y$12$Gkzw6KwYPFAVunNQDmI0G.z9KmBkL2icGMsn6MUz4HmC/asdotQb6', NULL, NULL, NULL, 1),
 (3, '8324809325', 'ndiaye', 'penda', '4706243331', '774367644', 'penda2002@gmail.com', 1, '$2y$12$mQBBYaolXoWzg3w7iDiPKefDMTY8rEt7iP.47pKSwwlkEwtMSMKdu', NULL, '2024-02-22 22:41:02', '2024-03-12 02:26:37', 2),
-(92, '1135929159', 'roronoa', 'zorrrrooo', '1138871583', '3246128766', 'fibix20637@fashlend.com', 1, '$2y$12$kw2YR5yp2wj3Ob3z2lefdOhZL8K4bo6wXcI5KsFXmvI9NL4l5zGUS', NULL, '2024-03-05 21:43:32', '2024-03-12 17:38:20', 2),
-(93, '8470364495', 'ndiaye', 'badara', '3225546188', '774327640', 'mapaye999@gmail.com', 1, '$2y$12$UOWrM5rcVx.pObuMOHhTBeElXQ5IHAFTiRc9FqjJrI99IVKohSUHe', NULL, '2024-03-05 22:47:34', '2024-03-05 22:47:34', 2),
+(92, '1135929159', 'roronoa', 'zorrrrooo', '1138871583', '3246128766', 'fibix20637@fashlend.com', 1, '$2y$12$kw2YR5yp2wj3Ob3z2lefdOhZL8K4bo6wXcI5KsFXmvI9NL4l5zGUS', NULL, '2024-03-05 21:43:32', '2024-03-18 03:19:22', 2),
+(93, '8470364495', 'ndiaye', 'badara', '3225546188', '774327640', 'mapaye999@gmail.com', 1, '$2y$12$UOWrM5rcVx.pObuMOHhTBeElXQ5IHAFTiRc9FqjJrI99IVKohSUHe', NULL, '2024-03-05 22:47:34', '2024-03-27 13:06:39', 2),
 (94, '7913702545', 'kurumada', 'kenshi', '2207890689', '21212121333333333333', 'xolele8888@fashlend.com', 1, '$2y$12$CGUnvsDWNmGprp.4Z5yMVe8J6tVN8q0eAcMUS7K5KMwYEEqUh1wIO', NULL, '2024-03-06 01:01:35', '2024-03-06 01:01:35', 2),
 (96, '8630301223', 'the goat', 'madara', '3168220001', '22222', 'pepasam150@fryshare.com', 1, '$2y$12$hXfmoB1s47AI1EZg6hnxzuIwLUWz0f8FZI/LlOTQwS0JqeQ1nI/By', NULL, '2024-03-12 00:16:10', '2024-03-12 00:16:10', 2),
 (97, '9618327982', 'laravel', 'mbaye', '9633612038', '775432109', 'geloko1405@irnini.com', 1, '$2y$12$IU5oUhNJ4godg9bKcVtIherq.9KAKxrOU7TBiZXJdkVWHFhPIjNk.', NULL, '2024-03-12 00:22:50', '2024-03-12 00:22:50', 2),
 (98, '4003987933', 'akashi', 'seijuro', '3336197914', '775432109', 'noginay455@hdrlog.com', 1, '$2y$12$Inm6btdLdqShpmzcy1O9Be8m9478MBtuSAFxDocBOq8qb.snBnOre', NULL, '2024-03-12 00:27:49', '2024-03-12 00:27:49', 2),
 (99, '2028822723', 'cisse', 'sokhna', '7861536211', '21212121333333333333', 'todan63452@hdrlog.com', 1, '$2y$12$h2H1m5UydsvRGK7fNDaMzevIlHjFOtvpNQsNgSZsGfiLYX1gqv7tC', NULL, '2024-03-12 15:16:31', '2024-03-12 15:16:31', 2),
-(100, '5376503710', 'ndiaye', 'mami penda', '1860712722', '765432190', 'penda777.pn@gmail.com', 1, '$2y$12$R1XCKMEygq0.upVTsJ.gTu.MhFCoYdxDen5QIMzfIJBKjFL/OpcfG', NULL, '2024-03-12 18:06:52', '2024-03-12 18:06:52', 2);
+(100, '5376503710', 'ndiaye', 'mami penda', '1860712722', '765432190', 'penda777.pn@gmail.com', 1, '$2y$12$R1XCKMEygq0.upVTsJ.gTu.MhFCoYdxDen5QIMzfIJBKjFL/OpcfG', NULL, '2024-03-12 18:06:52', '2024-03-12 19:49:34', 2),
+(122, '5204415556', 'thiago', 'messi', '6500402622', '3246128766', 'soliho4560@storesr.com', 1, '$2y$12$fBFl1einvxJFQtZFAAt6e.hSI3nGZQtYK.PvM.NWESwwEFXbellfm', NULL, '2024-03-27 15:07:34', '2024-03-27 15:07:34', 2),
+(123, '6759132708', 'thiam', 'tapha', '5764308292', '3246128766', 'nibij79478@storesr.com', 0, '$2y$12$MtmPNKSrONdGCIYydO6Ox.PaW0Jl1riycHcLRbLpUsd2CBqBGTO4e', NULL, '2024-03-27 15:09:16', '2024-03-27 15:31:00', 2);
 
 --
 -- Index pour les tables déchargées
@@ -403,13 +440,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT pour la table `credit_cards`
 --
 ALTER TABLE `credit_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT pour la table `migrations`
@@ -421,7 +458,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT pour la table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
@@ -433,13 +470,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
 -- Contraintes pour les tables déchargées

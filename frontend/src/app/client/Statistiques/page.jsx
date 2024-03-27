@@ -271,8 +271,7 @@ export default function page() {
                         }}
                     />
                     <p>
-                        Diagramme des types de compte dans
-                        l'application
+                        Diagramme de la solde total des types de compte
                     </p>
                 </div>
             </div>
@@ -297,7 +296,7 @@ export default function page() {
                     }}
                 />
                 <p>
-                    Courbe Historiques de tous transactions dans l'application
+                    Courbe Historiques de tous les transactions dans l'application
                 </p>
             </div>
             <ToastContainer position="bottom-right" />

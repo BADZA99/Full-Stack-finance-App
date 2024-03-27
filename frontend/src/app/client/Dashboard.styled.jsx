@@ -9,7 +9,7 @@ export const StyledDashboard = styled.div`
     font-family: "Inter", sans-serif;
     color: ${({ theme }) => theme.text};
     width: 70%;
-    height: 40vw;
+    height: 50vw;
     // border: 1px solid red;
 
     .ClientInfos {

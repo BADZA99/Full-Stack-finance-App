@@ -149,4 +149,32 @@ class AccountsController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
+    // verifier email d'un user si il exite
+    public function VerifierEmail(Request $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            if ($user->email == $request->email) {
+                return response()->json(['message' => 'email valide'], 200);
+            } else {
+                return response()->json(['message' => 'email invalide'], 500);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    // retourner la carte bancaire d'un user par son email
+    public function getCreditCardByEmail(Request $request)
+    {
+        try {
+            $user = User::where('email', $request->email)->first();
+            $account = account::where('user_id', $user->id)->first();
+            $credit_card = credit_card::where('account_id', $account->id)->first();
+            return $credit_card;
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
 }

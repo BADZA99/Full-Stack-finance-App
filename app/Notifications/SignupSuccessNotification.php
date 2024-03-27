@@ -55,13 +55,13 @@ public function __construct($accountData, $user_name,$user_rib,$user_CreditCard_
         ->line('ID utilisateur : ' . $this->accountData['user_id'])
         ->line('Type de compte : ' . $this->accountData['account_type'])
         ->line('Pack : ' . $this->accountData['pack'])
-        ->line('Plafond : ' . $this->accountData['plafond'] . ' FCFA')
+        ->line('Plafond : ' . ($this->accountData['plafond'] == 0 ? 'illimité' : $this->accountData['plafond'] . ' FCFA') )
         ->line('Montant : ' . $this->accountData['montant'] . ' FCFA')
         ->line('Votre RIB : ' . $this->user_rib)
         ->line('Numéro de carte Casslink : ' . $this->user_CreditCard_Number)
         ->line('Tarif mensuel : ' . $this->accountData['max_withdrawal'] . ' FCFA')
         ->line('Veuillez garder ces détails en sécurité. 🔐')
-        ->action('🌐 Visitez notre site web', url('/'))
+        ->action('🌐 Visitez notre site web', url('http://localhost:3000'))
         ->line('Si vous avez des questions, n\'hésitez pas à répondre à cet email. Nous sommes là pour vous aider ! 🤝')
         ->salutation('Meilleures salutations, 👋 Équipe CashLink');
 

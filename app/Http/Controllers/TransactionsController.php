@@ -94,5 +94,6 @@ class TransactionsController extends Controller
         return response()->json(['message' => 'email sent'], 200);
     }
 
+    
 
 }

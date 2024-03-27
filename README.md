@@ -21,7 +21,7 @@ Cashlink est une application web de gestion financière construite avec Next.js 
 - Notifications par e-mail de l'inscription et apres chaque transaction effectuee
 - Sécurité renforcée
   
-  - [Voir la démo du projet](https://lien-vers-la-demo.com)
+  - [Voir la démo du projet](https://www.linkedin.com/feed/update/urn:li:activity:7175664794992050176/)
 
 ## Installation
 
